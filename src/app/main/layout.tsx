@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { DM_Sans, Montserrat } from "next/font/google";
-import "./globals.css";
+import "./../globals.css"
 
 
 // bootstrap
 
-import "bootstrap/dist/css/bootstrap-grid.min.css";
+import "bootstrap/dist/css/bootstrap-grid.css";
 import { Container } from "react-bootstrap";
+
+// components
+
+import Header from "@/components/Header/Header";
 
 
 const montserat = Montserrat({ subsets: ["latin"] });
@@ -28,6 +32,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${montserat.className}`}>
         <Container fluid>
+          <Header />
         {children}
         </Container>
       </body>

@@ -1,0 +1,55 @@
+{
+  "cards": [
+
+    {
+      "id": 1,
+      "status": "inbox",
+      "author": "Author 1",
+      "title": "Test Card 1",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "deadline": "2020-02-05T14:00:00.000Z",
+      "prioryty": "normal",
+      "dateCreated": "2020-02-05T14:00:00.000Z",
+      "dateUpdated": "2020-02-05T14:00:00.000Z"
+    },
+
+    {
+      "id": 2,
+      "status": "inbox",
+      "author": "Author 2",
+      "title": "Test Card 2",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "deadline": "2020-02-05T14:00:00.000Z",
+      "priority": "normal",
+      "dateCreated": "2020-02-05T14:00:00.000Z",
+      "dateUpdated": "2020-02-05T14:00:00.000Z"
+    },
+
+    {
+      "id": 3,
+      "status": "inbox",
+      "author": "Author 3",
+      "title": "Test Card 3",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "deadline": "2020-02-05T14:00:00.000Z",
+      "priority": "normal",
+      "dateCreated": "2020-02-05T14:00:00.000Z",
+      "dateUpdated": "2020-02-05T14:00:00.000Z"
+    },
+
+    {
+      "id": 4,
+      "status": "inbox",
+      "author": "Author 4",
+      "title": "Test Card 4",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "deadline": "2020-02-05T14:00:00.000Z",
+      "priority": "normal",
+      "dateCreated": "2020-02-05T14:00:00.000Z",
+      "dateUpdated": "2020-02-05T14:00:00.000Z"
+    }
+
+
+
+  ]
+}

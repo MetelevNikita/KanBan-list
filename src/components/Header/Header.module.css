@@ -1,0 +1,16 @@
+.header_title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+
+.header_icon {
+
+  margin-right: 30px;
+}
+
+/* animation */
+
+.header_icon:active {
+  transform: scale(1.10);
+}
