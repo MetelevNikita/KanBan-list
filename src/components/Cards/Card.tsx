@@ -26,11 +26,14 @@ interface CardProps {
 const Card: FC<CardProps> = ({ card }) => {
 
 
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable(
-    {
-      id: card.id,
-    }
-  )
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({id: card.id})
+
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
 
 
   const shortDescription = card.description.length > 100 ? `${card.description.slice(0, 100)}...` : card.description
@@ -39,7 +42,7 @@ const Card: FC<CardProps> = ({ card }) => {
 
   return (
 
-    <div className={styles.card_container} ref={setNodeRef} style={{ transform: CSS.Transform.toString(transform), transition }} {...attributes}>
+    <div className={styles.card_container} ref={setNodeRef} style={style} {...attributes}>
 
         <div className={styles.card_box} {...listeners}>
 

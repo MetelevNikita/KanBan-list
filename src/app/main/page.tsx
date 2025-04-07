@@ -2,6 +2,9 @@
 
 
 import { FC, useState, useEffect } from 'react'
+import { DndContext, useSensors, useSensor, PointerSensor, KeyboardSensor, closestCenter } from "@dnd-kit/core"
+import { SortableContext, arrayMove, verticalListSortingStrategy, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
 
 //
 
@@ -83,17 +86,106 @@ const page = () => {
 
 
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates
+    })
+  )
+
+
+  const handleDragEnd = (event: any) => {
+    const {active, over} = event
+
+    if(!over) return
+
+    const activeId = active.id
+    const overId = over?.id
+
+    if(activeId === overId) return
+
+    const activeCard = cards.find((item: CardType) => item.id == active.id);
+    const overCard = cards.find((item: CardType) => item.id == over.id);
+
+
+    if(!activeCard || !overCard) return
+
+    if (activeCard.status !== overCard.status) {
+      setCards(cards.map((card: CardType) => {
+        if(card.id === activeId) {
+          return {...card, status: overCard.status}
+        }
+
+        return card
+      }))
+
+      return
+    }
+
+    //
+
+    setCards((items: CardType | any) => {
+      const oldIndex = items.findIndex((item: any) => item.id == active.id)
+      const newIndex = items.findIndex((item: any) => item.id == over.id)
+
+      return arrayMove(items, oldIndex, newIndex);
+    })
+
+  }
+
+  const handleDragOver = (event: any) => {
+    const { active, over } = event;
+
+    if(!over) return;
+
+    const activeId = active.id;
+    const overId = over.id;
+
+    if(activeId === overId) return;
+
+    console.log(over.data.current?.type)
+    const isOverAColumn = over.data.current?.type === 'column';
+
+    if(isOverAColumn) {
+      const activeTask = cards.find((item: CardType) => item.id === activeId);
+      const overColumnId = over.id;
+
+      console.log(activeTask)
+      console.log(overColumnId)
+
+
+      if(!activeTask || activeTask.status === overColumnId) return;
+
+      setCards(cards.map((card: CardType) => {
+        if(card.id === activeId) {
+          return {...card, status: overColumnId}
+        }
+
+        return card
+      }))
+      return
+    }
+
+  }
+
+
+
   return (
     <Container fluid>
       <Row>
 
-        <Col className='d-flex justify-content-center'>
 
-          {boardArr.map((item: BoardType, index: number): React.ReactNode => {
-            return <Board key={index+1} boardArr={item} card={{cards, setCards}}/>
-          })}
+        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
 
-        </Col>
+            <Col className='d-flex justify-content-center'>
+
+              {boardArr.map((item: BoardType, index: number): React.ReactNode => {
+                return <Board key={index+1} boardArr={item} card={{cards, setCards}}/>
+              })}
+
+            </Col>
+
+        </DndContext>
 
       </Row>
     </Container>
