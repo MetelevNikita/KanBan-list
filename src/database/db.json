@@ -3,7 +3,7 @@
 
     {
       "id": 1,
-      "status": "inbox",
+      "status": "agreed",
       "author": "Author 1",
       "title": "Test Card 1",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
@@ -15,7 +15,7 @@
 
     {
       "id": 2,
-      "status": "inbox",
+      "status": "rejected",
       "author": "Author 2",
       "title": "Test Card 2",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",

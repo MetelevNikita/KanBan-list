@@ -1,4 +1,5 @@
 export type CardType = {
+  [x: string]: any
   id: number,
   status: string,
   author: string,

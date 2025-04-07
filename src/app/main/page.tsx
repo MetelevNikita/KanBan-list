@@ -28,7 +28,7 @@ const page = () => {
   }, [])
 
 
-  console.log(cards)
+
 
 
   const getCards = async (): Promise<CardType[]> => {
@@ -45,8 +45,9 @@ const page = () => {
       return data
 
     } catch (error: Error | any) {
-      return []
       console.log(error.message)
+      return []
+
     }
   }
 
@@ -89,7 +90,7 @@ const page = () => {
         <Col className='d-flex justify-content-center'>
 
           {boardArr.map((item: BoardType, index: number): React.ReactNode => {
-            return <Board key={index+1} boardArr={item} cards={cards}/>
+            return <Board key={index+1} boardArr={item} card={{cards, setCards}}/>
           })}
 
         </Col>
