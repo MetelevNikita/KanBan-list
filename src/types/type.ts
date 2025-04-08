@@ -17,3 +17,16 @@ export type BoardType = {
   label: string,
   color: string
 }
+
+
+export type UsersType = {
+  id: number,
+  username: string,
+  name: string,
+  lastname: string,
+  email: string
+  password: string
+  dateCreated: string
+  company?: string
+
+}

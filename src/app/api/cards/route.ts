@@ -4,7 +4,7 @@ import path from "path";
 
 // database
 
-import db from '@/database/db.json'
+import db from '@/database/cards/db.json'
 
 // types
 
@@ -12,7 +12,7 @@ import { CardType } from "@/types/type";
 
 //
 
-const pathToFile = path.join(process.cwd(), `src/database/db.json`)
+const pathToFile = path.join(process.cwd(), `src/database/cards/db.json`)
 
 
 export const GET =  (): NextResponse<CardType[] | {message: string}>   => {

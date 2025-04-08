@@ -1,0 +1,49 @@
+{
+
+  "users": [
+    {
+      "id": 1,
+      "username": "Kyle",
+      "name": "Nikita",
+      "lastname": "Laptev",
+      "email": "nikita@gmail.com",
+      "password": "12345",
+      "dateCreated": "2021-03-12",
+      "company": "Manager"
+    },
+
+    {
+      "id": 2,
+      "username": "Vic",
+      "name": "Victor",
+      "lastname": "Ivanov",
+      "email": "ivanov@gmail.com",
+      "password": "12345",
+      "dateCreated": "2021-03-12",
+      "company": "Editor"
+    },
+
+    {
+      "id": 1,
+      "username": "do",
+      "name": "Igor",
+      "lastname": "Semenov",
+      "email": "semenov@gmail.com",
+      "password": "12345",
+      "dateCreated": "2021-03-12",
+      "company": "Editor"
+    },
+
+    {
+      "id": 1,
+      "username": "trent",
+      "name": "Anton",
+      "lastname": "Smith",
+      "email": "smith@gmail.com",
+      "password": "12345",
+      "dateCreated": "2021-03-12",
+      "company": "Director"
+    }
+
+  ]
+}
