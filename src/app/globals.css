@@ -5,7 +5,7 @@ body {
 }
 
 
-.dnd-handle {
+/* .dnd-handle {
   cursor: grab;
 }
 
@@ -16,4 +16,4 @@ body {
 
 [style*="translate3d"] {
   transform-style: preserve-3d !important;
-}
+} */

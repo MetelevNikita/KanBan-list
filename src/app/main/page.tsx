@@ -12,7 +12,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 // types
 
-import { BoardType, CardType } from '@/types/type'
+import { BoardType, CardType, UsersType } from '@/types/type'
 
 // components
 
@@ -24,12 +24,14 @@ const page = () => {
 
 
   const [cards, setCards] = useState<CardType[]>([])
+  const [users, setUsers] = useState<UsersType[]>([])
   const [activeCard, setActiveCard] = useState<CardType | any>()
 
   //
 
   useEffect(() => {
     getCards()
+    getUsers()
   }, [])
 
 
@@ -39,7 +41,7 @@ const page = () => {
 
 
 
-  // api
+  // api cards
 
   const getCards = async (): Promise<CardType[]> => {
     try {
@@ -107,11 +109,50 @@ const page = () => {
   }
 
 
+  // api users
+
+  const getUsers = async (): Promise<UsersType[] | any> => {
+    try {
+
+      const responce = await fetch('/api/users', {
+        method: "GET",
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+
+      const data = await responce.json()
+      setUsers(data)
+      return data
+
+    } catch (error: Error | any) {
+      console.log(`Ошибка получения пользователей: ${error.message}`)
+      return []
+    }
+  }
+
+
+  console.log(users)
+
+  const newBoard = (users: UsersType[]) => {
+
+    users.map((item) => {
+      console.log(item)
+      boardArr.push({
+        title: `${item.name} ${item.lastname}`,
+        label: item.username,
+        color: item.colorBoard,
+      })
+
+    })
+  }
+
+
   // DND
 
 
 
-  const boardArr: BoardType[] = [
+  let boardArr: BoardType[] = [
     {
       title: 'Входящие',
       label: 'inbox',
@@ -136,9 +177,10 @@ const page = () => {
       color: '#AB8767'
     },
 
-
-
   ]
+
+
+  newBoard(users)
 
 
   const sensors = useSensors(
@@ -154,7 +196,6 @@ const page = () => {
     const card = cards.find((item: CardType) => item.id == active.id)
     setActiveCard(card)
   }
-
 
   const handleDragEnd = (event: any) => {
     const {active, over} = event
@@ -236,7 +277,7 @@ const page = () => {
 
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragOver={handleDragOver} onDragStart={handleDragStart}>
 
-            <Col className='d-flex justify-content-center'>
+            <Col className='d-flex' style={{overflowY: 'scroll'}}>
 
               {boardArr.map((item: BoardType, index: number): React.ReactNode => {
                 return <Board key={index+1} boardArr={item} card={cards.filter((card: CardType) => card.status === item.label)} deleteCardHandler={deleteCard} />

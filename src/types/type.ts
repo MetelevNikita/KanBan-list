@@ -1,5 +1,4 @@
 export type CardType = {
-  [x: string]: any
   id: number,
   status: string,
   author: string,
@@ -28,5 +27,9 @@ export type UsersType = {
   password: string
   dateCreated: string
   company?: string
+  colorBoard: string
+  role: string
+
+
 
 }

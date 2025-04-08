@@ -1,6 +1,6 @@
 .card_container {
 
-  width: 360px;
+  width: 240px;
   height: max-content;
   background-color: #3E3E3E;
   border-radius: 10px;
@@ -13,7 +13,10 @@
 }
 
 .card_box {
-  padding: 20px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
 
 }
 
@@ -21,6 +24,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
+
 
 }
 
@@ -49,7 +53,9 @@
 
 .card_info_container {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+
 
 }
 
@@ -60,5 +66,6 @@
 
 .card_info_text {
   margin-left: 5px;
+  font-size: 12px;
 }
 

@@ -9,7 +9,9 @@
       "email": "nikita@gmail.com",
       "password": "12345",
       "dateCreated": "2021-03-12",
-      "company": "Manager"
+      "company": "Production",
+      "colorBoard": "#67AB8B",
+      "role": "manager"
     },
 
     {
@@ -20,29 +22,48 @@
       "email": "ivanov@gmail.com",
       "password": "12345",
       "dateCreated": "2021-03-12",
-      "company": "Editor"
+      "company": "Production",
+      "colorBoard": "#678FAB",
+      "role": "manager"
     },
 
     {
-      "id": 1,
+      "id": 3,
       "username": "do",
       "name": "Igor",
       "lastname": "Semenov",
       "email": "semenov@gmail.com",
       "password": "12345",
       "dateCreated": "2021-03-12",
-      "company": "Editor"
+      "company": "Production",
+      "colorBoard": "#8D67AB",
+      "role": "manager"
     },
 
     {
-      "id": 1,
+      "id": 4,
       "username": "trent",
       "name": "Anton",
       "lastname": "Smith",
       "email": "smith@gmail.com",
       "password": "12345",
       "dateCreated": "2021-03-12",
-      "company": "Director"
+      "company": "Production",
+      "colorBoard": "#ABA967",
+      "role": "manager"
+    },
+
+    {
+      "id": 4,
+      "username": "Odes",
+      "name": "Olga",
+      "lastname": "Meteleva",
+      "email": "olga@gmail.com",
+      "password": "12345",
+      "dateCreated": "2021-03-12",
+      "company": "Production",
+      "colorBoard": "#67AB9B",
+      "role": "manager"
     }
 
   ]
