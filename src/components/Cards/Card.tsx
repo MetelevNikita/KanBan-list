@@ -1,4 +1,6 @@
-import { FC } from 'react'
+'use client'
+
+import { FC, useState } from 'react'
 import Image from 'next/image'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
@@ -21,9 +23,10 @@ import { CardType } from '@/types/type'
 
 interface CardProps {
   card: CardType
+  deleteCardHandler: (id: string) => void
 }
 
-const Card: FC<CardProps> = ({ card }) => {
+const Card: FC<CardProps> = ({ card, deleteCardHandler }) => {
 
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({id: card.id})
@@ -33,6 +36,7 @@ const Card: FC<CardProps> = ({ card }) => {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
+    border: isDragging ? '3px solid white' : '3px solid transparent'
   };
 
 
@@ -89,7 +93,7 @@ const Card: FC<CardProps> = ({ card }) => {
             <div className={styles.card_info_box}>
               <Image src={deleteIcon} alt="Delete Icon" onClick={(e) => {
                 e.stopPropagation()
-                console.log('delete')
+                deleteCardHandler(card.id.toString())
                 }
                 }/>
             </div>

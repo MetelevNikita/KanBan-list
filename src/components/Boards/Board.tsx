@@ -22,19 +22,23 @@ import Card from "@/components/Cards/Card"
 
 interface BoardProps {
   boardArr: BoardType
-  card: {cards: CardType[], setCards: any}
+  card: any
+  deleteCardHandler: (id: string | number) => void
 }
 
-const Board: FC<BoardProps> = ({ boardArr, card }) => {
+const Board: FC<BoardProps> = ({ boardArr, card, deleteCardHandler }) => {
 
 
-  const {cards, setCards} = card
+  const { setNodeRef, isOver } = useDroppable({
+    id: boardArr.label,
+  })
+
 
 
 
 
   return (
-    <div className={styles.board_container}>
+    <div className={styles.board_container} ref={setNodeRef}>
 
       <div className={styles.board_title} style={{backgroundColor: `${boardArr.color}`}}>{boardArr.title}
 
@@ -43,18 +47,20 @@ const Board: FC<BoardProps> = ({ boardArr, card }) => {
       <div className={styles.board_content}>
 
 
-          <SortableContext items={cards.map((item) => item.id)} strategy={verticalListSortingStrategy}>
+          <SortableContext items={card.map((item: CardType) => item.id)}>
 
-              {cards.filter((item): Boolean => {
+              {card.filter((item: CardType): Boolean => {
                 return item.status === boardArr.label
-              }).map((item, index): React.ReactNode => {
+              }).map((item: CardType, index: number): React.ReactNode => {
 
-                return <Card key={index} card={item}/>
+                return <Card key={index} card={item} deleteCardHandler={deleteCardHandler}/>
               })}
 
           </SortableContext>
 
       </div>
+
+
     </div>
   )
 }

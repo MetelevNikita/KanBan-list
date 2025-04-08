@@ -6,6 +6,9 @@
   border-radius: 10px;
   margin-bottom: 10px;
   margin-top: 10px;
+  z-index: 999;
+  position: sticky;
+
 
 }
 

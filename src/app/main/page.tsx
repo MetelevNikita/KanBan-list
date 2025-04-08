@@ -2,9 +2,9 @@
 
 
 import { FC, useState, useEffect } from 'react'
-import { DndContext, useSensors, useSensor, PointerSensor, KeyboardSensor, closestCenter } from "@dnd-kit/core"
+import { DndContext, useSensors, useSensor, PointerSensor, KeyboardSensor, closestCenter, DragOverlay } from "@dnd-kit/core"
 import { SortableContext, arrayMove, verticalListSortingStrategy, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
-import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
+import { restrictToWindowEdges, restrictToFirstScrollableAncestor } from '@dnd-kit/modifiers';
 
 //
 
@@ -17,12 +17,14 @@ import { BoardType, CardType } from '@/types/type'
 // components
 
 import Board from '@/components/Boards/Board'
+import Card from '@/components/Cards/Card'
 
 
 const page = () => {
 
 
   const [cards, setCards] = useState<CardType[]>([])
+  const [activeCard, setActiveCard] = useState<CardType | any>()
 
   //
 
@@ -51,6 +53,26 @@ const page = () => {
       console.log(error.message)
       return []
 
+    }
+  }
+
+
+  const deleteCard = async (id: string | number): Promise<void> => {
+    try {
+
+      const responce = await fetch(`/api/cards/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+
+      const data = await responce.json()
+      return data
+
+    } catch (error: Error | any ) {
+      console.log(`Ошибка удления карточки: ${error.message}`)
+      return
     }
   }
 
@@ -85,13 +107,19 @@ const page = () => {
   ]
 
 
-
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates
     })
   )
+
+
+  const handleDragStart = (event: any) => {
+    const {active} = event
+    const card = cards.find((item: CardType) => item.id == active.id)
+    setActiveCard(card)
+  }
 
 
   const handleDragEnd = (event: any) => {
@@ -101,6 +129,9 @@ const page = () => {
 
     const activeId = active.id
     const overId = over?.id
+
+
+    console.log(activeId, overId)
 
     if(activeId === overId) return
 
@@ -128,6 +159,8 @@ const page = () => {
       const oldIndex = items.findIndex((item: any) => item.id == active.id)
       const newIndex = items.findIndex((item: any) => item.id == over.id)
 
+      console.log(oldIndex, newIndex)
+
       return arrayMove(items, oldIndex, newIndex);
     })
 
@@ -143,15 +176,11 @@ const page = () => {
 
     if(activeId === overId) return;
 
-    console.log(over.data.current?.type)
-    const isOverAColumn = over.data.current?.type === 'column';
+    const isOverAColumn = boardArr.some((item: BoardType) => item.label === overId)
 
     if(isOverAColumn) {
       const activeTask = cards.find((item: CardType) => item.id === activeId);
       const overColumnId = over.id;
-
-      console.log(activeTask)
-      console.log(overColumnId)
 
 
       if(!activeTask || activeTask.status === overColumnId) return;
@@ -166,7 +195,10 @@ const page = () => {
       return
     }
 
+
   }
+
+
 
 
 
@@ -175,15 +207,24 @@ const page = () => {
       <Row>
 
 
-        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragOver={handleDragOver} onDragStart={handleDragStart}>
 
             <Col className='d-flex justify-content-center'>
 
               {boardArr.map((item: BoardType, index: number): React.ReactNode => {
-                return <Board key={index+1} boardArr={item} card={{cards, setCards}}/>
+                return <Board key={index+1} boardArr={item} card={cards.filter((card: CardType) => card.status === item.label)} deleteCardHandler={deleteCard} />
               })}
 
             </Col>
+
+
+            <DragOverlay>
+
+              {activeCard ? <Card card={activeCard} deleteCardHandler={deleteCard}/> : null}
+
+            </DragOverlay>
+
+
 
         </DndContext>
 

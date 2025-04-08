@@ -3,3 +3,17 @@ body {
   background-color: #000000;
   overflow-x: hidden;
 }
+
+
+.dnd-handle {
+  cursor: grab;
+}
+
+.dnd-handle:active {
+  cursor: grabbing;
+}
+
+
+[style*="translate3d"] {
+  transform-style: preserve-3d !important;
+}
