@@ -33,8 +33,13 @@ const page = () => {
   }, [])
 
 
+  useEffect(() => {
+    postCards(cards)
+  }, [cards])
 
 
+
+  // api
 
   const getCards = async (): Promise<CardType[]> => {
     try {
@@ -56,8 +61,29 @@ const page = () => {
     }
   }
 
+  const postCards = async (cards: CardType[]): Promise<void> => {
 
-  const deleteCard = async (id: string | number): Promise<void> => {
+
+    try {
+      const responce = await fetch('/api/cards', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(cards)
+      })
+
+      const data = await responce.json()
+      return data
+    } catch (error : Error | any) {
+      console.log(`Ошибка сохранения карточек: ${error.message}`)
+      return
+
+    }
+  }
+
+
+  const deleteCard = async (id: string | number) => {
     try {
 
       const responce = await fetch(`/api/cards/${id}`, {
@@ -68,13 +94,21 @@ const page = () => {
       })
 
       const data = await responce.json()
-      return data
+
+      console.log(id)
+      const cardsAfterDelete = cards.filter((item: CardType) => Number(item.id) !== Number(id))
+      console.log(cardsAfterDelete)
+      setCards(cardsAfterDelete)
 
     } catch (error: Error | any ) {
       console.log(`Ошибка удления карточки: ${error.message}`)
       return
     }
   }
+
+
+  // DND
+
 
 
   const boardArr: BoardType[] = [
@@ -130,9 +164,6 @@ const page = () => {
     const activeId = active.id
     const overId = over?.id
 
-
-    console.log(activeId, overId)
-
     if(activeId === overId) return
 
     const activeCard = cards.find((item: CardType) => item.id == active.id);
@@ -146,11 +177,8 @@ const page = () => {
         if(card.id === activeId) {
           return {...card, status: overCard.status}
         }
-
         return card
       }))
-
-      return
     }
 
     //
@@ -192,10 +220,9 @@ const page = () => {
 
         return card
       }))
-      return
+
     }
-
-
+    return
   }
 
 

@@ -34,10 +34,14 @@ export const GET =  (): NextResponse<CardType[] | {message: string}>   => {
 
 // POST
 
-export const POST = () => {
+export const POST = async (resquest: Request, context: any) => {
   try {
 
-    return NextResponse.json({ message: 'POST' }, { status: 200 })
+    const newCards = await resquest.json()
+    fs.writeFileSync(pathToFile, JSON.stringify({cards: newCards}, null, 2))
+
+    return NextResponse.json({ message: 'Порядок карточек успешно изменен' }, { status: 200 })
+
 
   } catch (error: Error | any) {
     return NextResponse.json({ message: `Ошибка добавления новой карточки ${error.message}`, status: 500 })
