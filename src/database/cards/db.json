@@ -1,48 +1,70 @@
 {
   "cards": [
     {
-      "id": 3,
-      "status": "agreed",
-      "author": "John",
-      "title": "task 1",
-      "description": "task 1",
-      "deadline": "2018-04-18",
-      "prioryty": "1",
-      "dateCreated": "2018-04-18",
-      "dateUpdated": "2018-04-18"
-    },
-    {
       "id": 1,
-      "status": "Odes",
-      "author": "John",
-      "title": "task 1",
-      "description": "task 1",
-      "deadline": "2018-04-18",
-      "prioryty": "1",
-      "dateCreated": "2018-04-18",
-      "dateUpdated": "2018-04-18"
+      "status": "trent",
+      "author": "Alex",
+      "title": "Title 1",
+      "description": "Description",
+      "deadline": "12.12.2019",
+      "prioryty": "high",
+      "dateCreated": "12.12.2019",
+      "dateUpdated": "12.12.2019"
     },
     {
       "id": 2,
+      "status": "12312",
+      "author": "Alex",
+      "title": "Title 2",
+      "description": "Description",
+      "deadline": "12.12.2019",
+      "prioryty": "high",
+      "dateCreated": "12.12.2019",
+      "dateUpdated": "12.12.2019"
+    },
+    {
+      "id": 3,
       "status": "rejected",
-      "author": "John",
-      "title": "task 1",
-      "description": "task 1",
-      "deadline": "2018-04-18",
-      "prioryty": "1",
-      "dateCreated": "2018-04-18",
-      "dateUpdated": "2018-04-18"
+      "author": "Alex",
+      "title": "Title 3",
+      "description": "Description",
+      "deadline": "12.12.2019",
+      "prioryty": "high",
+      "dateCreated": "12.12.2019",
+      "dateUpdated": "12.12.2019"
     },
     {
       "id": 4,
+      "status": "Agreed with comments",
+      "author": "Alex",
+      "title": "Title 4",
+      "description": "Description",
+      "deadline": "12.12.2019",
+      "prioryty": "high",
+      "dateCreated": "12.12.2019",
+      "dateUpdated": "12.12.2019"
+    },
+    {
+      "id": 5,
+      "status": "Kyle",
+      "author": "Alex",
+      "title": "Title 4",
+      "description": "Description",
+      "deadline": "12.12.2019",
+      "prioryty": "high",
+      "dateCreated": "12.12.2019",
+      "dateUpdated": "12.12.2019"
+    },
+    {
+      "id": 6,
       "status": "inbox",
-      "author": "John",
-      "title": "task 1",
-      "description": "task 1",
-      "deadline": "2018-04-18",
-      "prioryty": "1",
-      "dateCreated": "2018-04-18",
-      "dateUpdated": "2018-04-18"
+      "author": "Alex",
+      "title": "Title 4",
+      "description": "Description",
+      "deadline": "12.12.2019",
+      "prioryty": "high",
+      "dateCreated": "12.12.2019",
+      "dateUpdated": "12.12.2019"
     }
   ]
 }

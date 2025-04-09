@@ -6,6 +6,10 @@ import { DndContext, useSensors, useSensor, PointerSensor, KeyboardSensor, close
 import { SortableContext, arrayMove, verticalListSortingStrategy, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { restrictToWindowEdges, restrictToFirstScrollableAncestor } from '@dnd-kit/modifiers';
 
+// css
+
+import styles from '@/app/main/page.module.css'
+
 //
 
 import { Container, Row, Col } from 'react-bootstrap'
@@ -38,6 +42,9 @@ const page = () => {
   useEffect(() => {
     postCards(cards)
   }, [cards])
+
+
+
 
 
 
@@ -83,7 +90,6 @@ const page = () => {
 
     }
   }
-
 
   const deleteCard = async (id: string | number) => {
     try {
@@ -131,8 +137,6 @@ const page = () => {
     }
   }
 
-
-  console.log(users)
 
   const newBoard = (users: UsersType[]) => {
 
@@ -277,10 +281,12 @@ const page = () => {
 
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragOver={handleDragOver} onDragStart={handleDragStart}>
 
-            <Col className='d-flex' style={{overflowY: 'scroll'}}>
+
+
+            <Col md={12} className={styles.boards_container} >
 
               {boardArr.map((item: BoardType, index: number): React.ReactNode => {
-                return <Board key={index+1} boardArr={item} card={cards.filter((card: CardType) => card.status === item.label)} deleteCardHandler={deleteCard} />
+                return <Col className={'d-flex flex-row'} style={{width: '430px'}} md={3} key={index+1}><Board boardArr={item} card={cards.filter((card: CardType) => card.status === item.label)} deleteCardHandler={deleteCard} /></Col>
               })}
 
             </Col>
