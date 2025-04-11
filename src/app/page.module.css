@@ -1,0 +1,26 @@
+.boards_container {
+  display: flex;
+  overflow-y: scroll;
+}
+
+
+/*  */
+
+
+.boards_container::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+
+.boards_container::-webkit-scrollbar-track {
+  background: #000000;
+
+}
+
+
+.boards_container::-webkit-scrollbar-thumb {
+  background-color: #7f7f7f5b;
+  border-radius: 4px;
+  width: 12px;
+}

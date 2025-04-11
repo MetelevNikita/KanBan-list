@@ -2,7 +2,7 @@
   "cards": [
     {
       "id": 1,
-      "status": "trent",
+      "status": "Vic",
       "author": "Alex",
       "title": "Title 1",
       "description": "Description",
@@ -23,8 +23,19 @@
       "dateUpdated": "12.12.2019"
     },
     {
+      "id": 5,
+      "status": "Vic",
+      "author": "Alex",
+      "title": "Title 4",
+      "description": "Description",
+      "deadline": "12.12.2019",
+      "prioryty": "high",
+      "dateCreated": "12.12.2019",
+      "dateUpdated": "12.12.2019"
+    },
+    {
       "id": 3,
-      "status": "rejected",
+      "status": "inbox",
       "author": "Alex",
       "title": "Title 3",
       "description": "Description",
@@ -45,19 +56,8 @@
       "dateUpdated": "12.12.2019"
     },
     {
-      "id": 5,
-      "status": "Kyle",
-      "author": "Alex",
-      "title": "Title 4",
-      "description": "Description",
-      "deadline": "12.12.2019",
-      "prioryty": "high",
-      "dateCreated": "12.12.2019",
-      "dateUpdated": "12.12.2019"
-    },
-    {
       "id": 6,
-      "status": "inbox",
+      "status": "rejected",
       "author": "Alex",
       "title": "Title 4",
       "description": "Description",
