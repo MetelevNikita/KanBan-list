@@ -4,13 +4,13 @@ import type  { NextRequest } from "next/server";
 
 export const middleware = (request: NextRequest) => {
 
-  const publickPaths = ["/login"]
+  const publickPaths = ["/login", "/registration"]
   const path = request.nextUrl.pathname;
   const token = request.cookies.get("token")?.value || "";
 
 
   if (token && (path === "/login")) {
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/main", request.url));
   }
 
 
@@ -25,8 +25,8 @@ export const middleware = (request: NextRequest) => {
 
 
 
-  if(path !== "/") {
-    return NextResponse.redirect(new URL("/", request.url));
+  if(path !== "/main") {
+    return NextResponse.redirect(new URL("/main", request.url));
   }
 
 

@@ -2,69 +2,47 @@
   "cards": [
     {
       "id": 1,
-      "status": "Vic",
-      "author": "Alex",
-      "title": "Title 1",
-      "description": "Description",
-      "deadline": "12.12.2019",
-      "prioryty": "high",
-      "dateCreated": "12.12.2019",
-      "dateUpdated": "12.12.2019"
-    },
-    {
-      "id": 2,
-      "status": "12312",
-      "author": "Alex",
-      "title": "Title 2",
-      "description": "Description",
-      "deadline": "12.12.2019",
-      "prioryty": "high",
-      "dateCreated": "12.12.2019",
-      "dateUpdated": "12.12.2019"
-    },
-    {
-      "id": 5,
-      "status": "Vic",
-      "author": "Alex",
-      "title": "Title 4",
-      "description": "Description",
-      "deadline": "12.12.2019",
-      "prioryty": "high",
-      "dateCreated": "12.12.2019",
-      "dateUpdated": "12.12.2019"
+      "status": "inbox",
+      "author": "Nikita Metelev",
+      "title": "Create a new component 1",
+      "description": "TEST TEST",
+      "deadline": "2018-01-24",
+      "prioryty": "work",
+      "dateCreated": "2018-01-24",
+      "dateUpdated": "2018-01-24"
     },
     {
       "id": 3,
-      "status": "inbox",
-      "author": "Alex",
-      "title": "Title 3",
-      "description": "Description",
-      "deadline": "12.12.2019",
-      "prioryty": "high",
-      "dateCreated": "12.12.2019",
-      "dateUpdated": "12.12.2019"
+      "status": "rejected",
+      "author": "Nikita Metelev",
+      "title": "Create a new component 3",
+      "description": "TEST TEST",
+      "deadline": "2018-01-24",
+      "prioryty": "work",
+      "dateCreated": "2018-01-24",
+      "dateUpdated": "2018-01-24"
+    },
+    {
+      "id": 2,
+      "status": "rejected",
+      "author": "Nikita Metelev",
+      "title": "Create a new component 2",
+      "description": "TEST TEST",
+      "deadline": "2018-01-24",
+      "prioryty": "work",
+      "dateCreated": "2018-01-24",
+      "dateUpdated": "2018-01-24"
     },
     {
       "id": 4,
       "status": "Agreed with comments",
-      "author": "Alex",
-      "title": "Title 4",
-      "description": "Description",
-      "deadline": "12.12.2019",
-      "prioryty": "high",
-      "dateCreated": "12.12.2019",
-      "dateUpdated": "12.12.2019"
-    },
-    {
-      "id": 6,
-      "status": "rejected",
-      "author": "Alex",
-      "title": "Title 4",
-      "description": "Description",
-      "deadline": "12.12.2019",
-      "prioryty": "high",
-      "dateCreated": "12.12.2019",
-      "dateUpdated": "12.12.2019"
+      "author": "Nikita Metelev",
+      "title": "Create a new component 4",
+      "description": "TEST TEST",
+      "deadline": "2018-01-24",
+      "prioryty": "work",
+      "dateCreated": "2018-01-24",
+      "dateUpdated": "2018-01-24"
     }
   ]
 }

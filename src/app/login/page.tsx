@@ -2,6 +2,8 @@
 
 import { FC } from "react";
 import Image from "next/image";
+import Link from "next/link";
+
 
 //
 
@@ -20,10 +22,13 @@ import MyButton from "@/components/UI/Button/MyButton";
 
 import { authFunc } from '@/functions/authFunc'
 
+//
+
+
+
 
 
 const AuthPage: FC = () => {
-
 
 
   return (
@@ -44,6 +49,7 @@ const AuthPage: FC = () => {
 
       <Row>
         <Col className="d-flex flex-column align-items-center mb-4"><MyButton name={'login_button'} type={'submit'} text={'Войти'}/></Col>
+        <Col className="d-flex flex-column align-items-center mb-4"><Link href={'/registration'}><MyButton name={'registration_button'} type={'button'} text={'Регистрация'}/></Link></Col>
       </Row>
 
       </form>

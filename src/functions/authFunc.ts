@@ -1,5 +1,3 @@
-
-
 export const authFunc = async (formData: any) => {
   try {
 
@@ -22,10 +20,14 @@ export const authFunc = async (formData: any) => {
     })
     const data = await responce.json()
     console.log(data)
+
+    if(data) {
+      window.location.href = '/'
+    }
     return data
 
 
   } catch (error) {
-    console.error('Попытка войти в систему оказалась не удачной')
+    console.error(`Попытка войти в систему оказалась не удачной = ${error}`)
   }
 }

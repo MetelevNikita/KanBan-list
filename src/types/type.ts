@@ -26,7 +26,7 @@ export type UsersType = {
   email: string
   password: string
   dateCreated: string
-  company?: string
+  company: string
   colorBoard: string
   role: string
 

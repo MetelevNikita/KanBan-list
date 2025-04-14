@@ -23,66 +23,6 @@
       "company": "Production",
       "colorBoard": "#678FAB",
       "role": "manager"
-    },
-    {
-      "id": 3,
-      "username": "do",
-      "name": "Igor",
-      "lastname": "Semenov",
-      "email": "semenov@gmail.com",
-      "password": "12345",
-      "dateCreated": "2021-03-12",
-      "company": "Production",
-      "colorBoard": "#8D67AB",
-      "role": "manager"
-    },
-    {
-      "id": 4,
-      "username": "trent",
-      "name": "Anton",
-      "lastname": "Smith",
-      "email": "smith@gmail.com",
-      "password": "12345",
-      "dateCreated": "2021-03-12",
-      "company": "Production",
-      "colorBoard": "#ABA967",
-      "role": "manager"
-    },
-    {
-      "id": 5,
-      "username": "Odes",
-      "name": "Olga",
-      "lastname": "Meteleva",
-      "email": "olga@gmail.com",
-      "password": "12345",
-      "dateCreated": "2021-03-12",
-      "company": "Production",
-      "colorBoard": "#67AB9B",
-      "role": "manager"
-    },
-    {
-      "id": 6,
-      "username": "12312",
-      "name": "123123123",
-      "lastname": "Meteleva",
-      "email": "olga@gmail.com",
-      "password": "12345",
-      "dateCreated": "2021-03-12",
-      "company": "Production",
-      "colorBoard": "#67AB9B",
-      "role": "manager"
-    },
-    {
-      "id": 7,
-      "username": "KyleBroflovski",
-      "name": "Nikita",
-      "lastname": "Metelev",
-      "email": "Kyle.B@gmail.com",
-      "password": "12345",
-      "dateCreated": "Wed Apr 09 2025 11:26:38 GMT+0500 (Екатеринбург, стандартное время)",
-      "company": "Production",
-      "colorBoard": "#67AB9B",
-      "role": "manager"
     }
   ]
 }

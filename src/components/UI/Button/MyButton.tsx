@@ -7,7 +7,7 @@ import styles from '@/components/UI/Button/Mybutton.module.css'
 
 interface MyButtonProps {
   text: string
-  onClick?: () => void
+  onClick?: any
   type: 'button' | 'submit' | 'reset'
   name: string
 }
