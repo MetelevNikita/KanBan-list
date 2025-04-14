@@ -13,7 +13,7 @@
     },
     {
       "id": 3,
-      "status": "rejected",
+      "status": "agreed",
       "author": "Nikita Metelev",
       "title": "Create a new component 3",
       "description": "TEST TEST",

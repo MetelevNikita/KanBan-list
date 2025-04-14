@@ -1,6 +1,7 @@
 import { NextResponse} from 'next/server'
 import jwt from 'jsonwebtoken'
 import {cookies} from 'next/headers';
+import bcrypt from 'bcryptjs'
 
 
 //
@@ -16,7 +17,9 @@ export const POST = async (request: Request,) => {
     const requestData = await request.json();
     const {email, password} = requestData;
 
-    const user = db.users.find(user => user.email === email && user.password === password);
+
+    const user = await db.users.find(user => user.email === email && bcrypt.compareSync(password, user.password));
+    // const user = db.users.find(user => user.email === email && user.password === password );
 
     if(!user) {
       return NextResponse.json({message: 'Пользователь не найден'})

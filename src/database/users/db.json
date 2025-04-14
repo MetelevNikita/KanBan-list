@@ -23,6 +23,18 @@
       "company": "Production",
       "colorBoard": "#678FAB",
       "role": "manager"
+    },
+    {
+      "id": 3,
+      "username": "admin",
+      "name": "Nikita",
+      "lastname": "Metelev",
+      "email": "Kyle.B@mail.ru",
+      "dateCreated": "14.04.2025",
+      "password": "$2b$10$mwK5dLBR5mA7wplVqHNdw.HvgvXZTQvFFx5wJQEHItepWuK62KLim",
+      "company": "Production",
+      "colorBoard": "#6967AB",
+      "role": "Worker"
     }
   ]
 }

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import path from 'path'
 import fs from 'fs'
+import bcrypt from 'bcryptjs'
 
 // type
 
@@ -19,6 +20,13 @@ export const POST = async (request: Request) => {
 
     const { username, name, lastname, email, company, role, password } = await request.json()
 
+
+    // hash password
+
+    const salt = bcrypt.genSaltSync(10)
+    const hashedPassword = bcrypt.hashSync(password, salt)
+
+
     if(!username || !name || !lastname || !email || !company || !role || !password) {
       return NextResponse.json({ message: 'Не все поля заполнены!', status: 'error' }, { status: 400 })
     }
@@ -30,7 +38,7 @@ export const POST = async (request: Request) => {
       lastname: lastname,
       email: email,
       dateCreated: new Date().toLocaleDateString(),
-      password: password,
+      password: hashedPassword,
       company: company,
       colorBoard: '#6967AB',
       role: role,
