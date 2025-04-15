@@ -24,9 +24,10 @@ interface BoardProps {
   boardArr: BoardType
   card: any
   deleteCardHandler: (id: string | number) => void
+  idCard: any
 }
 
-const Board: FC<BoardProps> = ({ boardArr, card, deleteCardHandler }) => {
+const Board: FC<BoardProps> = ({ boardArr, card, deleteCardHandler, idCard }) => {
 
 
   const { setNodeRef, isOver } = useDroppable({
@@ -53,7 +54,7 @@ const Board: FC<BoardProps> = ({ boardArr, card, deleteCardHandler }) => {
                 return item.status === boardArr.label
               }).map((item: CardType, index: number): React.ReactNode => {
 
-                return <Card key={index} card={item} deleteCardHandler={deleteCardHandler}/>
+                return <Card key={index} card={item} deleteCardHandler={deleteCardHandler} idCard={idCard}/>
               })}
 
           </SortableContext>

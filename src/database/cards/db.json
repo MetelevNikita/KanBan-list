@@ -12,19 +12,8 @@
       "dateUpdated": "2018-01-24"
     },
     {
-      "id": 3,
-      "status": "agreed",
-      "author": "Nikita Metelev",
-      "title": "Create a new component 3",
-      "description": "TEST TEST",
-      "deadline": "2018-01-24",
-      "prioryty": "work",
-      "dateCreated": "2018-01-24",
-      "dateUpdated": "2018-01-24"
-    },
-    {
       "id": 2,
-      "status": "rejected",
+      "status": "inbox",
       "author": "Nikita Metelev",
       "title": "Create a new component 2",
       "description": "TEST TEST",
@@ -34,10 +23,10 @@
       "dateUpdated": "2018-01-24"
     },
     {
-      "id": 4,
-      "status": "Agreed with comments",
+      "id": 3,
+      "status": "inbox",
       "author": "Nikita Metelev",
-      "title": "Create a new component 4",
+      "title": "Create a new component 3",
       "description": "TEST TEST",
       "deadline": "2018-01-24",
       "prioryty": "work",

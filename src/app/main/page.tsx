@@ -22,6 +22,7 @@ import { BoardType, CardType, UsersType } from '@/types/type'
 
 import Board from '@/components/Boards/Board'
 import Card from '@/components/Cards/Card'
+import OpenCard from '@/components/OpenCard/OpenCard';
 
 
 const page = () => {
@@ -29,6 +30,7 @@ const page = () => {
 
   const [cards, setCards] = useState<CardType[]>([])
   const [users, setUsers] = useState<UsersType[]>([])
+  const [activeId, setActiveId] = useState<number | null>(null)
   const [activeCard, setActiveCard] = useState<CardType | any>()
 
   //
@@ -42,9 +44,6 @@ const page = () => {
   useEffect(() => {
     postCards(cards)
   }, [cards])
-
-
-
 
 
 
@@ -141,7 +140,6 @@ const page = () => {
   const newBoard = (users: UsersType[]) => {
 
     users.map((item) => {
-      console.log(item)
       boardArr.push({
         title: `${item.name} ${item.lastname}`,
         label: item.username,
@@ -183,9 +181,7 @@ const page = () => {
 
   ]
 
-
   newBoard(users)
-
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -271,6 +267,15 @@ const page = () => {
   }
 
 
+  //
+
+
+
+
+  const singleCard: CardType | undefined = cards.filter((item: CardType) => item.id === activeId)[0]
+  console.log(singleCard)
+
+
 
 
 
@@ -286,7 +291,7 @@ const page = () => {
             <Col md={12} className={styles.boards_container} >
 
               {boardArr.map((item: BoardType, index: number): React.ReactNode => {
-                return <Col className={'d-flex flex-row'} style={{width: '430px'}} md={3} key={index+1}><Board boardArr={item} card={cards.filter((card: CardType) => card.status === item.label)} deleteCardHandler={deleteCard} /></Col>
+                return <Col className={'d-flex flex-row'} style={{width: '430px'}} md={3} key={index+1}><Board boardArr={item} card={cards.filter((card: CardType) => card.status === item.label)} deleteCardHandler={deleteCard} idCard={{activeId, setActiveId}}/></Col>
               })}
 
             </Col>
@@ -294,13 +299,25 @@ const page = () => {
 
             <DragOverlay>
 
-              {activeCard ? <Card card={activeCard} deleteCardHandler={deleteCard}/> : null}
+              {activeCard ? <Card card={activeCard} deleteCardHandler={deleteCard} idCard={{activeId, setActiveId}}/> : null}
 
             </DragOverlay>
 
 
 
         </DndContext>
+
+      </Row>
+
+
+
+      <Row>
+
+        <Col className={styles.open_card_container} md={12}>
+
+          {(activeId) ? <OpenCard card={singleCard}/> : null}
+
+        </Col>
 
       </Row>
     </Container>

@@ -5,6 +5,7 @@ body {
   background-color: #000000;
   overflow-x: hidden;
   overflow-y: hidden;
+  background-image: url('./../asset/GRID.png');
 }
 
 

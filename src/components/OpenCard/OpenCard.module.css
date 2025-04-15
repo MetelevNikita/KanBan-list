@@ -1,0 +1,14 @@
+.openCard_container {
+  width: 500px;
+  height: 100%;
+  background-color: rgb(53, 53, 53);
+
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 999;
+}
+
+.openCard_box {
+  padding: 50px;
+}

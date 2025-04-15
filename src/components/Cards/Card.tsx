@@ -17,6 +17,10 @@ import deleteIcon from '@/asset/card/delete.svg'
 
 import styles from '@/components/Cards/Card.module.css'
 
+// components
+
+import CardButton from '@/components/UI/Card_Button/CardButton'
+
 // types
 
 import { CardType } from '@/types/type'
@@ -24,9 +28,13 @@ import { CardType } from '@/types/type'
 interface CardProps {
   card: CardType
   deleteCardHandler: (id: string) => void
+  idCard: any
 }
 
-const Card: FC<CardProps> = ({ card, deleteCardHandler }) => {
+const Card: FC<CardProps> = ({ card, deleteCardHandler, idCard }) => {
+
+
+  const {activeId, setActiveId} = idCard
 
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({id: card.id})
@@ -42,6 +50,12 @@ const Card: FC<CardProps> = ({ card, deleteCardHandler }) => {
 
   const shortDescription = card.description.length > 100 ? `${card.description.slice(0, 100)}...` : card.description
   const date = new Date(card.dateCreated).toLocaleDateString()
+
+
+
+
+
+
 
 
   return (
@@ -68,6 +82,7 @@ const Card: FC<CardProps> = ({ card, deleteCardHandler }) => {
         </div>
 
 
+        <div>
 
         <div className={`${styles.card_info_container} ${styles.card_box}`}>
 
@@ -99,6 +114,22 @@ const Card: FC<CardProps> = ({ card, deleteCardHandler }) => {
             </div>
 
         </div>
+
+
+
+        <div className={styles.card_button_container}>
+
+                <CardButton type={'button'} text={'открыть'}  onClick={() => {setActiveId(card.id)}}/>
+                <CardButton type={'button'} text={'открыть'}  onClick={() => {console.log('открыть')}}/>
+        </div>
+
+
+
+        </div>
+
+
+
+
 
     </div>
   )

@@ -4,7 +4,7 @@
   height: max-content;
   background-color: #3E3E3E;
   border-radius: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   margin-top: 10px;
   z-index: 999;
   position: sticky;
@@ -67,5 +67,13 @@
 .card_info_text {
   margin-left: 5px;
   font-size: 12px;
+}
+
+
+.card_button_container {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-left: 10px;
 }
 
