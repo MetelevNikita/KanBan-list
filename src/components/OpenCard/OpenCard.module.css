@@ -1,14 +1,158 @@
 .openCard_container {
+  width: 512px;
+  height: 1080px;
+  background-color: #1A1B1B;
+  margin-left: auto;
+  z-index: 10000;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+
+}
+
+/* header */
+
+.openCard_header {
   width: 500px;
-  height: 100%;
-  background-color: rgb(53, 53, 53);
+  height: 112px;
+  background-color: #404040;
+  padding: 0px;
+  padding-top: 30px;
 
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 999;
+
 }
 
-.openCard_box {
-  padding: 50px;
+.openCard_header_back_container {
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  padding-top: 20px;
 }
+
+.openCard_header_back_image {}
+
+.openCard_header_back_title {
+  width: 300px;
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.openCard_header_title_container {
+  padding-left: 30px;
+  padding-top: 20px;
+  display: flex;
+
+}
+
+.openCard_header_title_menu {
+  margin-right: 20px;
+}
+
+
+
+/* main */
+
+
+.openCard_main {
+  width: 400px;
+  padding-left: 30px;
+  padding-bottom: 150px;
+}
+
+.openCard_title {
+  width: 400px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 13px;
+  margin-bottom: 10px;
+
+}
+
+.openCard_line {
+  width: 400px;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0;
+  margin-top: 13px;
+  margin-bottom: 15px;
+}
+
+.openCard_info_container {
+  margin-top: 10px;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.openCard_status_container {
+  height: 30px;
+  display: flex;
+  align-items: center;
+
+}
+
+.openCard_status_image {
+  width: 16px;
+
+}
+
+.openCard_status_title {
+  margin-left: 10px;
+}
+
+
+
+/*  */
+
+
+.openCard_date_box {
+  display: flex;
+  align-items: center;
+
+}
+
+.openCard_date_image {
+
+}
+
+.openCard_date_title {
+  margin-left: 10px;
+}
+
+
+/*  */
+
+.openCard_delete_box {
+
+}
+
+.openCard_delete_image {
+
+}
+
+
+/* priority */
+
+.prioryty_container {
+
+}
+
+.prioryty_title {}
+
+.prioryty_box {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.prioryty_icon {}
+
+.prioryty_Icon_title {
+  margin-left: 10px;
+}
+
+
+
+
+

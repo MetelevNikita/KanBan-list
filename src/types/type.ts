@@ -1,13 +1,27 @@
 export type CardType = {
-  id: number,
-  status: string,
-  author: string,
-  title: string,
-  description: string,
-  deadline: string,
-  prioryty?: string,
-  dateCreated: string,
-  dateUpdated: string
+
+    id: number
+    cardid: string
+    title: string
+    name: string
+    phone: string
+    tgid: string
+    typeproduct: string
+    otherproduct: string
+    promotion: string
+    typework: string
+    target: string
+    viewer: string
+    effect: string
+    description: string
+    voiceover: string
+    timing: string
+    place: string
+    technicalspecification: string
+    deadline: string
+    status: string
+    dateCreated: string
+
 }
 
 

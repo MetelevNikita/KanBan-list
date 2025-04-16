@@ -1,6 +1,12 @@
 .boards_container {
   display: flex;
   overflow-y: scroll;
+  /* scroll-snap-type: x mandatory; */
+  margin-left: 20px;
+}
+
+.boards_card {
+  /* scroll-snap-align: center; */
 }
 
 

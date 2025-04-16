@@ -1,0 +1,18 @@
+.title_box_container {
+  min-height: 50px;
+  margin-bottom: 25px;
+}
+
+.title_box_title {
+  width: 400px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px
+}
+
+.title_box_text {
+  text-align: justify;
+  width: 400px;
+  height: max-content;
+  font-size: 15px;
+}

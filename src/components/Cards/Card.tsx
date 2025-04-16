@@ -68,7 +68,7 @@ const Card: FC<CardProps> = ({ card, deleteCardHandler, idCard }) => {
 
               <div className={styles.card_theme_box}>
                 <div className={styles.card_title}>{card.title}</div>
-                <div className={styles.card_date_create}>{date}</div>
+                <div className={styles.card_date_create}>Дата создания: {card.deadline}</div>
               </div>
 
 
@@ -119,8 +119,9 @@ const Card: FC<CardProps> = ({ card, deleteCardHandler, idCard }) => {
 
         <div className={styles.card_button_container}>
 
-                <CardButton type={'button'} text={'открыть'}  onClick={() => {setActiveId(card.id)}}/>
-                <CardButton type={'button'} text={'открыть'}  onClick={() => {console.log('открыть')}}/>
+            <CardButton type={'button'} text={'открыть'}  onClick={() => {setActiveId(card.id)}}/>
+            <CardButton type={'button'} text={'редактировать'}  onClick={() => {console.log('открыть')}}/>
+
         </div>
 
 

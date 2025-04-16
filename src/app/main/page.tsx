@@ -5,10 +5,11 @@ import { FC, useState, useEffect } from 'react'
 import { DndContext, useSensors, useSensor, PointerSensor, KeyboardSensor, closestCenter, DragOverlay } from "@dnd-kit/core"
 import { SortableContext, arrayMove, verticalListSortingStrategy, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { restrictToWindowEdges, restrictToFirstScrollableAncestor } from '@dnd-kit/modifiers';
+import { motion, AnimatePresence } from "motion/react"
 
 // css
 
-import styles from '@/app/page.module.css'
+import styles from '@/app/main/page.module.css'
 
 //
 
@@ -25,6 +26,7 @@ import Card from '@/components/Cards/Card'
 import OpenCard from '@/components/OpenCard/OpenCard';
 
 
+
 const page = () => {
 
 
@@ -38,6 +40,8 @@ const page = () => {
   useEffect(() => {
     getCards()
     getUsers()
+
+
   }, [])
 
 
@@ -273,14 +277,14 @@ const page = () => {
 
 
   const singleCard: CardType | undefined = cards.filter((item: CardType) => item.id === activeId)[0]
-  console.log(singleCard)
+
 
 
 
 
 
   return (
-    <Container fluid>
+    <>
       <Row>
 
 
@@ -291,7 +295,7 @@ const page = () => {
             <Col md={12} className={styles.boards_container} >
 
               {boardArr.map((item: BoardType, index: number): React.ReactNode => {
-                return <Col className={'d-flex flex-row'} style={{width: '430px'}} md={3} key={index+1}><Board boardArr={item} card={cards.filter((card: CardType) => card.status === item.label)} deleteCardHandler={deleteCard} idCard={{activeId, setActiveId}}/></Col>
+                return <Col className={styles.boards_card} style={{width: '380px'}} md={3} key={index+1}><Board boardArr={item} card={cards.filter((card: CardType) => card.status === item.label)} deleteCardHandler={deleteCard} idCard={{activeId, setActiveId}}/></Col>
               })}
 
             </Col>
@@ -315,12 +319,17 @@ const page = () => {
 
         <Col className={styles.open_card_container} md={12}>
 
-          {(activeId) ? <OpenCard card={singleCard}/> : null}
+          <AnimatePresence initial={false}>
+
+          {(activeId) ? <motion.div key={"box"} initial={{x: 300, y:-950}} animate={{x: 0, y:-950, transition: {duration: 0.3}}} exit={{x: 500, y:-950, transition: {duration: 0.3}}} ><OpenCard card={singleCard} id={{activeId, setActiveId}}/></motion.div> : null}
+
+          </AnimatePresence>
 
         </Col>
 
       </Row>
-    </Container>
+
+  </>
   )
 }
 
