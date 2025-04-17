@@ -16,6 +16,7 @@ import backIcon from '@/asset/opencard/back_img.svg'
 import agreetIcon from '@/asset/card/agreet.svg'
 import rejectedIcon from '@/asset/card/rejected.svg'
 import commentIcon from '@/asset/card/comments.svg'
+import userIcon from '@/asset/card/user.svg'
 import deleteIcon from '@/asset/card/delete.svg'
 import dateIcon from '@/asset/card/deadline.svg'
 
@@ -28,19 +29,57 @@ import standartIcon from '@/asset/opencard/prioryty/standart.svg'
 // components
 
 import TitleBox from '@/components/UI/OpenCard_title_box/TitleBox'
+import MyButton from "../UI/Button/MyButton"
+
+// functions
+
+
 
 
 interface OpenCardProps {
   card: CardType
   id: any
+  deleteHandler: any
 }
 
-const OpenCard: FC<OpenCardProps> = ({ card, id }) => {
+const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
 
   const {activeId, setActiveId} = id
+  const [menu, setMenu] = useState<string>('description')
 
 
   console.log(card)
+
+
+  const deleteCard = (id: number | string) => {
+
+    setActiveId(null)
+    deleteHandler(id)
+  }
+
+
+  const createComment = async (formData: FormData) => {
+    try {
+
+      const text = formData.get('comment') as string
+      console.log(text)
+
+      const response = await fetch(`/api/cards/${card.id}`, {
+        method: 'PUT',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({text})
+      })
+
+      const data = response
+      console.log(data)
+      return data
+
+    } catch (error) {
+      console.log('ОШИБКА' + error)
+    }
+  }
 
   return (
     <div className={styles.openCard_container}>
@@ -56,16 +95,15 @@ const OpenCard: FC<OpenCardProps> = ({ card, id }) => {
 
           <div className={styles.openCard_header_title_container}>
 
-            <div className={styles.openCard_header_title_menu}>Описание проекта</div>
-            <div className={styles.openCard_header_title_menu}>Подробности</div>
+            <div className={styles.openCard_header_title_menu} onClick={() => {setMenu('description')}}>Описание проекта</div>
+            <div className={styles.openCard_header_title_menu} onClick={() => {setMenu('comment')}}>Подробности</div>
 
           </div>
 
       </div>
 
 
-      <div className={styles.openCard_main}>
-
+      {(menu === 'description') && <div className={styles.openCard_main}>
 
           <div className={styles.openCard_title}>{card.title}</div>
 
@@ -73,26 +111,27 @@ const OpenCard: FC<OpenCardProps> = ({ card, id }) => {
 
             <div className={styles.openCard_info_container}>
 
-                <div className={styles.openCard_status_container}>
+                {card.status === 'inbox' && <div className={styles.openCard_status_container}></div>}
 
-                  <Image className={styles.openCard_status_image} src={agreetIcon} alt="agreed"/>
-                  <div className={styles.openCard_status_title}>Согласовано</div>
+                {card.status === 'agreed' && <div className={styles.openCard_status_container}><Image className={styles.openCard_status_image} src={agreetIcon} alt="agreed"/><div className={styles.openCard_status_title}>Согласовано</div></div>}
 
-                </div>
+                {card.status === 'rejected' && <div className={styles.openCard_status_container}><Image className={styles.openCard_status_image} src={rejectedIcon} alt="rejected"/><div className={styles.openCard_status_title}>Отклонено</div></div>}
+
+                {card.status === 'Agreed with comments' && <div className={styles.openCard_status_container}><Image className={styles.openCard_status_image} src={commentIcon} alt="Соглосовано с замечаниями"/><div className={styles.openCard_status_title}>Отклонено</div></div>}
+
+
+                {(card.status !== 'agreed' && card.status !== 'rejected' && card.status !== 'Agreed with comments') ? <div className={styles.openCard_status_container}><Image className={styles.openCard_status_image} src={userIcon} alt="Взята в работу"/><div className={styles.openCard_status_title}>Карточка в работу у {card.status}</div></div> : <></>}
+
 
 
                   <div className={styles.openCard_date_box}>
-
                     <Image src={dateIcon} alt="date" className={styles.openCard_date_image} />
                     <div className={styles.openCard_date_title}>{card.deadline}</div>
-
                   </div>
 
 
                   <div className={styles.openCard_delete_box}>
-
-                    <Image src={deleteIcon} alt="date" className={styles.openCard_delete_image} />
-
+                    <Image src={deleteIcon} alt="date" className={styles.openCard_delete_image} onClick={() => deleteCard(card.id)}/>
                   </div>
 
             </div>
@@ -131,7 +170,35 @@ const OpenCard: FC<OpenCardProps> = ({ card, id }) => {
             </div>
 
 
-      </div>
+      </div>}
+
+
+
+      {(menu === 'comment') && <form action={createComment}><div className={styles.openCard_comment}>
+
+
+
+            <div className={styles.openCard_comment_textarea_container}>
+
+              <div className={styles.openCard_comment_textarea_title}>Введите комментарий</div>
+              <textarea className={styles.openCard_comment_textarea} defaultValue={card.comment} name="comment"/>
+
+            </div>
+
+
+            <div className={styles.openCard_button_container}>
+              <MyButton text={"создать"} type={"submit"} name={""} />
+            </div>
+
+
+            <div className={styles.openCard_comment_container}>
+
+
+
+            </div>
+
+        </div></form>}
+
     </div>
   )
 }

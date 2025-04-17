@@ -1,30 +1,6 @@
 {
   "cards": [
     {
-      "id": 3,
-      "cardid": "77454f27-3150-4a90-b1a8-6e1656a74204",
-      "title": "ролик анимированный про скидку -50% при подключении к Уфанет в марте 2025",
-      "name": "Крайнева Александра, пиар ",
-      "phone": "89603812521",
-      "tgid": "377877250",
-      "typeproduct": "Видеоролик",
-      "otherproduct": "",
-      "promotion": "не фильм",
-      "typework": "Разработка с нуля",
-      "target": "реклама акции -50% на 2 мес. при подключении пакета услуг в МКД Уфы ",
-      "viewer": "жители Уфы ",
-      "effect": "желание подключить услуги Уфанет на выгодных условиях ",
-      "description": "есть визуал для лифтов, который необходимо анимировать",
-      "voiceover": "см.выше",
-      "timing": "кратно 5, не более 30 сек",
-      "place": "ПТВ, ЮТВ и телеканалы по взаимозачету",
-      "technicalspecification": "мп4",
-      "deadline": "2025-03-05",
-      "prioryty": "urgently",
-      "status": "inbox",
-      "dateCreated": "2024-09-17"
-    },
-    {
       "id": 2,
       "cardid": "83ef91d7-6a9d-450c-ab48-103099f25253",
       "title": "Адаптация ролика по поликлинике ТВ",
@@ -45,8 +21,9 @@
       "technicalspecification": "-",
       "deadline": "2025-03-17",
       "prioryty": "urgently",
-      "status": "admin",
-      "dateCreated": "2024-09-17"
+      "status": "agreed",
+      "dateCreated": "2024-09-17",
+      "comment": []
     },
     {
       "id": 1,
@@ -70,7 +47,8 @@
       "deadline": "2024-09-17",
       "prioryty": "urgently",
       "status": "Kyle",
-      "dateCreated": "2024-09-17"
+      "dateCreated": "2024-09-17",
+      "comment": []
     }
   ]
 }

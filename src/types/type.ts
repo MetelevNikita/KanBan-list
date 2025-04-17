@@ -21,6 +21,7 @@ export type CardType = {
     deadline: string
     status: string
     dateCreated: string
+    comment: string[]
 
 }
 

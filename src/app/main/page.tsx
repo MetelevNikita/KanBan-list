@@ -321,7 +321,7 @@ const page = () => {
 
           <AnimatePresence initial={false}>
 
-          {(activeId) ? <motion.div key={"box"} initial={{x: 300, y:-950}} animate={{x: 0, y:-950, transition: {duration: 0.3}}} exit={{x: 500, y:-950, transition: {duration: 0.3}}} ><OpenCard card={singleCard} id={{activeId, setActiveId}}/></motion.div> : null}
+          {(activeId) ? <motion.div key={"box"} initial={{x: 300, y:-950}} animate={{x: 0, y:-950, transition: {duration: 0.3}}} exit={{x: 500, y:-950, transition: {duration: 0.3}}} ><OpenCard card={singleCard} id={{activeId, setActiveId}} deleteHandler={deleteCard}/></motion.div> : null}
 
           </AnimatePresence>
 

@@ -47,3 +47,18 @@ export const POST = async (resquest: Request, context: any) => {
     return NextResponse.json({ message: `Ошибка добавления новой карточки ${error.message}`, status: 500 })
   }
 }
+
+
+export const PUT = async (request: Request, context: any) => {
+  try {
+
+    const body = await request.json()
+    console.log(body)
+
+    return NextResponse.json({ message: `Карточка изменена ${body}` }, { status: 200 })
+
+
+  } catch (error: Error | any) {
+    return NextResponse.json({ message: `Ошибка изменения карточки ${error.message}`, status: 500 })
+  }
+}
