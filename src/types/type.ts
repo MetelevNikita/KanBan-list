@@ -1,6 +1,6 @@
 export type CardType = {
 
-    id: number
+    id: string
     cardid: string
     title: string
     name: string
@@ -19,6 +19,7 @@ export type CardType = {
     place: string
     technicalspecification: string
     deadline: string
+    prioryty: string | any,
     status: string
     dateCreated: string
     comment: string[]

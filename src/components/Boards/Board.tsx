@@ -19,10 +19,12 @@ import styles from '@/components/Boards/Board.module.css'
 
 import Card from "@/components/Cards/Card"
 
+//
+
 
 interface BoardProps {
   boardArr: BoardType
-  card: any
+  card: CardType[]
   deleteCardHandler: (id: string | number) => void
   idCard: any
 }
@@ -33,8 +35,6 @@ const Board: FC<BoardProps> = ({ boardArr, card, deleteCardHandler, idCard }) =>
   const { setNodeRef, isOver } = useDroppable({
     id: boardArr.label,
   })
-
-
 
 
 

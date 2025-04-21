@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useState, useEffect } from "react"
 import Image from "next/image"
 
 
@@ -30,6 +30,7 @@ import standartIcon from '@/asset/opencard/prioryty/standart.svg'
 
 import TitleBox from '@/components/UI/OpenCard_title_box/TitleBox'
 import MyButton from "../UI/Button/MyButton"
+import Comment from '@/components/UI/Comment/Comment'
 
 // functions
 
@@ -44,11 +45,13 @@ interface OpenCardProps {
 
 const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
 
+
   const {activeId, setActiveId} = id
+  const [currentCard, setCurrentCard] = useState<CardType | null>(null)
   const [menu, setMenu] = useState<string>('description')
 
 
-  console.log(card)
+
 
 
   const deleteCard = (id: number | string) => {
@@ -57,23 +60,21 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
     deleteHandler(id)
   }
 
-
-  const createComment = async (formData: FormData) => {
+  const createComment = async (formData: FormData): Promise<any> => {
     try {
 
       const text = formData.get('comment') as string
-      console.log(text)
 
-      const response = await fetch(`/api/cards/${card.id}`, {
+      const response = await fetch(`/api/comments/${currentCard?.id}`, {
         method: 'PUT',
         headers: {
           'content-type': 'application/json'
         },
-        body: JSON.stringify({text})
+        body: JSON.stringify(text)
       })
 
-      const data = response
-      console.log(data)
+      const data = await response.json()
+      formData.set('comment','')
       return data
 
     } catch (error) {
@@ -81,9 +82,14 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
     }
   }
 
+
+  console.log(card)
+
+
+
+
   return (
     <div className={styles.openCard_container}>
-
 
       <div className={styles.openCard_header}>
 
@@ -164,7 +170,7 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
 
                 <div className={styles.prioryty_box}>
                     <Image className={styles.prioryty_icon} src={urgentlyIcon} alt="urgently"/>
-                    {/* <div className={styles.prioryty_Icon_title}>{card.prioryty}</div> */}
+                    <div className={styles.prioryty_Icon_title}>{card.prioryty}</div>
                 </div>
 
             </div>
@@ -181,7 +187,7 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
             <div className={styles.openCard_comment_textarea_container}>
 
               <div className={styles.openCard_comment_textarea_title}>Введите комментарий</div>
-              <textarea className={styles.openCard_comment_textarea} defaultValue={card.comment} name="comment"/>
+              <textarea className={styles.openCard_comment_textarea} defaultValue={''} name="comment"/>
 
             </div>
 
@@ -193,6 +199,9 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
 
             <div className={styles.openCard_comment_container}>
 
+              {/* {currentCard?.comment.map((comment: string, index: number) => {
+                return <Comment key={index+1} author={'TEST'} date={new Date().toLocaleDateString()} comment={comment} number={index+1} />
+              })} */}
 
 
             </div>

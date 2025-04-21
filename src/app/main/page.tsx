@@ -32,7 +32,7 @@ const page = () => {
 
   const [cards, setCards] = useState<CardType[]>([])
   const [users, setUsers] = useState<UsersType[]>([])
-  const [activeId, setActiveId] = useState<number | null>(null)
+  const [activeId, setActiveId] = useState<number | string>('')
   const [activeCard, setActiveCard] = useState<CardType | any>()
 
   //
@@ -276,7 +276,7 @@ const page = () => {
 
 
 
-  const singleCard: CardType | undefined = cards.filter((item: CardType) => item.id === activeId)[0]
+  const singleCard: CardType = cards.filter((item: CardType) => item.id === activeId)[0]
 
 
 
