@@ -2,9 +2,7 @@ import { NextResponse } from "next/server";
 import fs from 'fs'
 import path from 'path'
 
-// database
 
-import db from '@/database/cards/db.json'
 
 // types
 
@@ -13,7 +11,7 @@ import { CardType, UsersType } from "@/types/type";
 //
 
 
-const pathToFile = path.join(process.cwd(), `src/database/cards/db.json`)
+
 
 
 // GET
@@ -22,13 +20,19 @@ export const GET = async (request: Request, context: {params: {id: string}}): Pr
 
   try {
 
+
+    const pathToFile = path.join(process.cwd(), "/src/database/cards/db.json");
+    const db = fs.readFileSync(pathToFile, "utf-8");
+    const dbData: {cards: CardType[]} = JSON.parse(db)
+
     const { id } = await context.params
 
-    console.log(id)
-    console.log(db)
+    if (dbData.cards.length < 1) {
+      return NextResponse.json({message: `Карточки не найдены`}, {status: 404})
+    }
 
 
-    const singleCard = db.cards.find((card: CardType) => card.id === id)
+    const singleCard = dbData.cards.find((card: CardType) => card.id === id)
     console.log(singleCard)
 
     if (!singleCard) {
@@ -48,7 +52,15 @@ export const GET = async (request: Request, context: {params: {id: string}}): Pr
 
 export const DELETE = async (request: Request, context: {params: {id: string}}): Promise<NextResponse<{message: string}>> => {
   try {
-   const cards: CardType[] = db.cards
+
+
+
+    const pathToFile = path.join(process.cwd(), "/src/database/cards/db.json");
+    const db = fs.readFileSync(pathToFile, "utf-8");
+    const dbData: {cards: CardType[]} = JSON.parse(db)
+
+
+   const cards: CardType[] = dbData.cards
    const { id } = await context.params
    const filteredCards = cards.filter((card: CardType) => card.id !== id)
 
@@ -71,10 +83,13 @@ export const DELETE = async (request: Request, context: {params: {id: string}}):
 export const PUT = async (request: Request, context: any) => {
   try {
 
+    const pathToFile = path.join(process.cwd(), "/src/database/cards/db.json");
+    const db = fs.readFileSync(pathToFile, "utf-8");
+    const dbData: {cards: CardType[]} = JSON.parse(db)
 
     const { id } = await context.params
 
-    const currentCard: CardType | any = db.cards.find((card: CardType) => card.id === id)
+    const currentCard: CardType | any = dbData.cards.find((card: CardType) => card.id === id)
 
 
     if(!currentCard) {
@@ -87,7 +102,7 @@ export const PUT = async (request: Request, context: any) => {
     const body = await request.json()
     currentCard.comment.push(body)
 
-    const filteredCards = db.cards.filter((card: CardType) => card.id !== id)
+    const filteredCards = dbData.cards.filter((card: CardType) => card.id !== id)
 
     filteredCards.push(currentCard)
     fs.writeFileSync(pathToFile, JSON.stringify({cards: filteredCards}, null, 3))

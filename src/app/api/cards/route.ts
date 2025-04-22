@@ -4,7 +4,7 @@ import path from "path";
 
 // database
 
-import db from '@/database/cards/db.json'
+
 
 // types
 
@@ -12,13 +12,18 @@ import { CardType } from "@/types/type";
 
 //
 
-const pathToFile = path.join(process.cwd(), `src/database/cards/db.json`)
+const pathToFile = path.join(process.cwd(), "/src/database/cards/db.json");
+
 
 
 export const GET =  (): NextResponse<CardType[] | {message: string}>   => {
   try {
 
-    const cards: CardType[] = db.cards
+
+    const db = fs.readFileSync(pathToFile, "utf-8");
+    const dbData: {cards: CardType[]} = JSON.parse(db)
+
+    const cards: CardType[] = dbData.cards
 
     if (cards.length < 1) return NextResponse.json([])
     if(!cards) return NextResponse.json({ message: 'No Cards' }, { status: 200 })
@@ -36,6 +41,8 @@ export const GET =  (): NextResponse<CardType[] | {message: string}>   => {
 
 export const POST = async (resquest: Request, context: any) => {
   try {
+
+    
 
     const newCards = await resquest.json()
     fs.writeFileSync(pathToFile, JSON.stringify({cards: newCards}, null, 2))

@@ -8,7 +8,7 @@ import styles from '@/components/OpenCard/OpenCard.module.css'
 
 // types
 
-import{ CardType } from "@/types/type"
+import{ CardType, UsersType } from "@/types/type"
 
 // img
 
@@ -41,18 +41,53 @@ interface OpenCardProps {
   card: CardType
   id: any
   deleteHandler: any
+  user: {currentUser: string | undefined, setCurrentUser: any}
 }
 
-const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
+const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler, user }) => {
 
 
   const {activeId, setActiveId} = id
-  const [currentCard, setCurrentCard] = useState<CardType | null>(null)
+  const { currentUser, setCurrentUser } = user
+
+  //
+
+  const [currentCard, setCurrentCard] = useState<CardType>()
+  const [update, setUpdate] = useState<string | number>('')
   const [menu, setMenu] = useState<string>('description')
 
+  //
 
 
 
+  useEffect(() => {
+    getSingleCard()
+  }, [update])
+
+
+  const getSingleCard = async () => {
+    try {
+
+      const responce = await fetch(`/api/cards/${card.id}`, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+
+
+      if(!responce.ok) {
+        throw new Error('Что то пошло не так')
+      }
+
+      const data = await responce.json()
+      setCurrentCard(data)
+      return data
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const deleteCard = (id: number | string) => {
 
@@ -60,12 +95,15 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
     deleteHandler(id)
   }
 
+
+  //
+
   const createComment = async (formData: FormData): Promise<any> => {
     try {
 
       const text = formData.get('comment') as string
 
-      const response = await fetch(`/api/comments/${currentCard?.id}`, {
+      const response = await fetch(`/api/comments/${card.id}`, {
         method: 'PUT',
         headers: {
           'content-type': 'application/json'
@@ -75,6 +113,7 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
 
       const data = await response.json()
       formData.set('comment','')
+      setUpdate(Math.random())
       return data
 
     } catch (error) {
@@ -83,8 +122,41 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
   }
 
 
-  console.log(card)
+  const deleteComment = async (id: number | string) => {
+    try {
 
+
+
+      console.log(id)
+
+
+      const responce = await fetch(`/api/comments/${card.id}`, {
+        method: 'DELETE',
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+
+      const data = await responce.json()
+      return data
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+  //
+
+
+
+
+
+
+
+  if(!currentCard) {
+    return <div>loading...</div>
+  }
 
 
 
@@ -111,28 +183,28 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
 
       {(menu === 'description') && <div className={styles.openCard_main}>
 
-          <div className={styles.openCard_title}>{card.title}</div>
+          <div className={styles.openCard_title}>{currentCard.title}</div>
 
           <hr className={styles.openCard_line}/>
 
             <div className={styles.openCard_info_container}>
 
-                {card.status === 'inbox' && <div className={styles.openCard_status_container}></div>}
+                {currentCard.status === 'inbox' && <div className={styles.openCard_status_container}></div>}
 
-                {card.status === 'agreed' && <div className={styles.openCard_status_container}><Image className={styles.openCard_status_image} src={agreetIcon} alt="agreed"/><div className={styles.openCard_status_title}>Согласовано</div></div>}
+                {currentCard.status === 'agreed' && <div className={styles.openCard_status_container}><Image className={styles.openCard_status_image} src={agreetIcon} alt="agreed"/><div className={styles.openCard_status_title}>Согласовано</div></div>}
 
-                {card.status === 'rejected' && <div className={styles.openCard_status_container}><Image className={styles.openCard_status_image} src={rejectedIcon} alt="rejected"/><div className={styles.openCard_status_title}>Отклонено</div></div>}
+                {currentCard.status === 'rejected' && <div className={styles.openCard_status_container}><Image className={styles.openCard_status_image} src={rejectedIcon} alt="rejected"/><div className={styles.openCard_status_title}>Отклонено</div></div>}
 
-                {card.status === 'Agreed with comments' && <div className={styles.openCard_status_container}><Image className={styles.openCard_status_image} src={commentIcon} alt="Соглосовано с замечаниями"/><div className={styles.openCard_status_title}>Отклонено</div></div>}
+                {currentCard.status === 'Agreed with comments' && <div className={styles.openCard_status_container}><Image className={styles.openCard_status_image} src={commentIcon} alt="Соглосовано с замечаниями"/><div className={styles.openCard_status_title}>Отклонено</div></div>}
 
 
-                {(card.status !== 'agreed' && card.status !== 'rejected' && card.status !== 'Agreed with comments') ? <div className={styles.openCard_status_container}><Image className={styles.openCard_status_image} src={userIcon} alt="Взята в работу"/><div className={styles.openCard_status_title}>Карточка в работу у {card.status}</div></div> : <></>}
+                {(currentCard.status !== 'agreed' && currentCard.status !== 'rejected' && currentCard.status !== 'Agreed with comments') ? <div className={styles.openCard_status_container}><Image className={styles.openCard_status_image} src={userIcon} alt="Взята в работу"/><div className={styles.openCard_status_title}>Карточка в работу у {currentCard.status}</div></div> : <></>}
 
 
 
                   <div className={styles.openCard_date_box}>
                     <Image src={dateIcon} alt="date" className={styles.openCard_date_image} />
-                    <div className={styles.openCard_date_title}>{card.deadline}</div>
+                    <div className={styles.openCard_date_title}>{currentCard.deadline}</div>
                   </div>
 
 
@@ -145,24 +217,23 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
           <hr className={styles.openCard_line}/>
 
 
-            <TitleBox title='Описание проекта' description={card.description} />
-            <TitleBox title='Автор' description={card.name} />
-            <TitleBox title='Телефон' description={card.phone} />
-            <TitleBox title='Тип Продукта' description={card.typeproduct} />
-            <TitleBox title='Тип Продукта' description={card.typeproduct} />
+            <TitleBox title='Описание проекта' description={currentCard.description} />
+            <TitleBox title='Автор' description={currentCard.name} />
+            <TitleBox title='Телефон' description={currentCard.phone} />
+            <TitleBox title='Тип Продукта' description={currentCard.typeproduct} />
+            <TitleBox title='Тип Продукта' description={currentCard.typeproduct} />
 
-            <TitleBox title='Формат продукта' description={card.promotion} />
-            <TitleBox title='Зрители' description={card.viewer} />
-            <TitleBox title='Какой эффект хотите получить' description={card.effect} />
+            <TitleBox title='Формат продукта' description={currentCard.promotion} />
+            <TitleBox title='Зрители' description={currentCard.viewer} />
+            <TitleBox title='Какой эффект хотите получить' description={currentCard.effect} />
 
             <hr className={styles.openCard_line}/>
 
             <div className={styles.openCard_title}>Техническася спецификация</div>
 
-            <TitleBox title='Закадровый текст' description={card.voiceover} />
-            <TitleBox title='Хронометраж' description={card.timing} />
-            <TitleBox title='Площадка для размещения' description={card.place} />
-
+            <TitleBox title='Закадровый текст' description={currentCard.voiceover} />
+            <TitleBox title='Хронометраж' description={currentCard.timing} />
+            <TitleBox title='Площадка для размещения' description={currentCard.place} />
 
             <div className={styles.prioryty_container}>
 
@@ -170,7 +241,7 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
 
                 <div className={styles.prioryty_box}>
                     <Image className={styles.prioryty_icon} src={urgentlyIcon} alt="urgently"/>
-                    <div className={styles.prioryty_Icon_title}>{card.prioryty}</div>
+                    <div className={styles.prioryty_Icon_title}>{currentCard.prioryty}</div>
                 </div>
 
             </div>
@@ -185,10 +256,8 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
 
 
             <div className={styles.openCard_comment_textarea_container}>
-
               <div className={styles.openCard_comment_textarea_title}>Введите комментарий</div>
               <textarea className={styles.openCard_comment_textarea} defaultValue={''} name="comment"/>
-
             </div>
 
 
@@ -199,9 +268,9 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler }) => {
 
             <div className={styles.openCard_comment_container}>
 
-              {/* {currentCard?.comment.map((comment: string, index: number) => {
-                return <Comment key={index+1} author={'TEST'} date={new Date().toLocaleDateString()} comment={comment} number={index+1} />
-              })} */}
+              {currentCard.comment.map((comment: string, index: number) => {
+                return <Comment key={index+1} author={currentUser} date={new Date().toLocaleDateString()} comment={comment} number={index+1} deleteHandler={deleteComment}/>
+              })}
 
 
             </div>

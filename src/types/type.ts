@@ -1,4 +1,5 @@
 export type CardType = {
+    filter(arg0: (card: any, index: number) => boolean): unknown
 
     id: string
     cardid: string
@@ -35,7 +36,7 @@ export type BoardType = {
 
 
 export type UsersType = {
-  id: number,
+  id: string,
   username: string,
   name: string,
   lastname: string,

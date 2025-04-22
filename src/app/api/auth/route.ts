@@ -19,7 +19,6 @@ export const POST = async (request: Request,) => {
 
 
     const user = await db.users.find(user => user.email === email && bcrypt.compareSync(password, user.password));
-    // const user = db.users.find(user => user.email === email && user.password === password );
 
     if(!user) {
       return NextResponse.json({message: 'Пользователь не найден'})
@@ -29,7 +28,7 @@ export const POST = async (request: Request,) => {
     (await cookies()).set('token', token)
 
 
-    return NextResponse.json({message: 'success'})
+    return NextResponse.json(user)
 
 
   } catch (error) {

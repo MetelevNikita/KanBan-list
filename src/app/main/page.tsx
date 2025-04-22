@@ -32,6 +32,7 @@ const page = () => {
 
   const [cards, setCards] = useState<CardType[]>([])
   const [users, setUsers] = useState<UsersType[]>([])
+  const [currentUser, setCurrentUser] = useState<UsersType>()
   const [activeId, setActiveId] = useState<number | string>('')
   const [activeCard, setActiveCard] = useState<CardType | any>()
 
@@ -40,8 +41,7 @@ const page = () => {
   useEffect(() => {
     getCards()
     getUsers()
-
-
+    getSingleUser()
   }, [])
 
 
@@ -138,6 +138,35 @@ const page = () => {
       console.log(`Ошибка получения пользователей: ${error.message}`)
       return []
     }
+  }
+
+
+  const getSingleUser = async (): Promise<UsersType> => {
+
+    try {
+      const id = sessionStorage.getItem('userId')
+      const userId = JSON.parse(id as string)
+
+      const responce = await fetch(`/api/users/${userId}`, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+
+
+      if(!responce.ok) {
+        throw new Error('Пользователь не найден')
+      }
+
+      const data = await responce.json()
+      setCurrentUser(data.user)
+      return data
+
+    } catch (error: Error | any) {
+      console.log(`Ошибка получения пользователя: ${error.message}`)
+    }
+
   }
 
 
@@ -321,7 +350,7 @@ const page = () => {
 
           <AnimatePresence initial={false}>
 
-          {(activeId) ? <motion.div key={"box"} initial={{x: 300, y:-950}} animate={{x: 0, y:-950, transition: {duration: 0.3}}} exit={{x: 500, y:-950, transition: {duration: 0.3}}} ><OpenCard card={singleCard} id={{activeId, setActiveId}} deleteHandler={deleteCard}/></motion.div> : null}
+          {(activeId) ? <motion.div key={"box"} initial={{x: 300, y:-950}} animate={{x: 0, y:-950, transition: {duration: 0.3}}} exit={{x: 500, y:-950, transition: {duration: 0.3}}} ><OpenCard card={singleCard} id={{activeId, setActiveId}} deleteHandler={deleteCard} user={{currentUser, setCurrentUser}} /></motion.div> : null}
 
           </AnimatePresence>
 

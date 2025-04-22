@@ -9,13 +9,14 @@ import styles from '@/components/UI/Comment/Comment.module.css'
 import CardButton from '@/components/UI/Card_Button/CardButton'
 
 interface CommentProps {
-  author: string
+  author: string | undefined
   date: string
   comment: string;
   number: number
+  deleteHandler: any
  }
 
-const Comment: FC<CommentProps> = ({ author, date, comment, number}) => {
+const Comment: FC<CommentProps> = ({ author, date, comment, number, deleteHandler}) => {
   return (
     <div className={styles.comment_container}>
 
@@ -30,7 +31,7 @@ const Comment: FC<CommentProps> = ({ author, date, comment, number}) => {
 
 
       <div className={styles.comment_text}>{comment}</div>
-      <CardButton type={'button'} text={'Удалить'} onClick={() => {console.log('asd')}}/>
+      <CardButton type={'button'} text={'Удалить'} onClick={() => {deleteHandler(number)}}/>
 
 
 

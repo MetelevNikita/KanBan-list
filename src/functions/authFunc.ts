@@ -20,6 +20,7 @@ export const authFunc = async (formData: any) => {
     })
     const data = await responce.json()
     console.log(data)
+    sessionStorage.setItem('userId', JSON.stringify(data.id))
 
     if(data) {
       window.location.href = '/'
