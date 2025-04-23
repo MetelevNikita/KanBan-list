@@ -14,7 +14,7 @@ import { CommentCardTypes } from '@/types/type'
 
 interface CommentProps {
   comment: CommentCardTypes
-  author: string | undefined
+  author: string | null
   deleteHandler: any
  }
 

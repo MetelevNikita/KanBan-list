@@ -41,7 +41,7 @@ interface OpenCardProps {
   card: CardType
   id: any
   deleteHandler: any
-  user: {currentUser: string | undefined, setCurrentUser: any}
+  user: {currentUser: string | null, setCurrentUser: any}
 }
 
 const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler, user }) => {
@@ -96,7 +96,8 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler, user }) => {
   }
 
 
-  //
+  // comments
+
 
   const createComment = async (formData: FormData): Promise<any> => {
     try {

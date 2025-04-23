@@ -31,9 +31,7 @@ export const GET = async (request: Request, context: {params: {id: string}}): Pr
       return NextResponse.json({message: `Карточки не найдены`}, {status: 404})
     }
 
-
     const singleCard = dbData.cards.find((card: CardType) => card.id === id)
-    console.log(singleCard)
 
     if (!singleCard) {
       return NextResponse.json({message: `Карточка не найдена`}, {status: 404})
@@ -96,8 +94,6 @@ export const PUT = async (request: Request, context: any) => {
       return NextResponse.json({message: `Карточка не найдена`}, {status: 404})
     }
 
-
-    console.log(currentCard.comment)
 
     const body = await request.json()
     currentCard.comment.push(body)

@@ -32,7 +32,7 @@ const page = () => {
 
   const [cards, setCards] = useState<CardType[]>([])
   const [users, setUsers] = useState<UsersType[]>([])
-  const [currentUser, setCurrentUser] = useState<UsersType | null>(null)
+  const [currentUser, setCurrentUser] = useState<string | null>(null)
   const [activeId, setActiveId] = useState<number | string>('')
   const [activeCard, setActiveCard] = useState<CardType | any>()
 
@@ -165,6 +165,7 @@ const page = () => {
 
     } catch (error: Error | any) {
       console.log(`Ошибка получения пользователя: ${error.message}`)
+      return error.message
     }
 
   }
@@ -306,6 +307,7 @@ const page = () => {
 
 
   const singleCard: CardType = cards.filter((item: CardType) => item.id === activeId)[0]
+
 
 
 

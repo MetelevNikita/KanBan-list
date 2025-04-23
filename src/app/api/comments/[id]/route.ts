@@ -67,13 +67,7 @@ export const DELETE = async (request: Request, context: { params: { id: string }
     const newCardComment = dbData.cards.find((item: CardType) => item.id === id).comment.filter((item: CommentCardTypes) => item.id !== parseInt(commentId))
 
 
-    console.log(newCardComment)
-
     const newCard = {...dbData.cards.find((item: CardType) => item.id === id), comment: newCardComment}
-
-    console.log(newCard)
-
-
     const newDatabase = dbData.cards.filter((item: CardType) => item.id !== id);
     newDatabase.push(newCard)
     fs.writeFileSync(pathToFile, JSON.stringify({ cards: newDatabase }, null, 3))

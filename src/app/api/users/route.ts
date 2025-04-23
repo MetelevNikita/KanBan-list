@@ -41,13 +41,12 @@ export const POST = async (req: Request): Promise<NextResponse<UsersType[] | any
   try {
 
     const body = await req.json()
-    console.log(body)
 
     if (!body) return NextResponse.json({message: "Ошибка получения данных пользователя"}, {status: 400})
     const users = await db.users
 
     const newUser = {
-      id: Number(users.length + 1),
+      id: Number(users.length + 1).toString(),
       username: body.username,
       name: body.name,
       lastname: body.lastname,

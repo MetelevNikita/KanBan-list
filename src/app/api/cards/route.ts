@@ -2,9 +2,6 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
-// database
-
-
 
 // types
 
@@ -42,7 +39,7 @@ export const GET =  (): NextResponse<CardType[] | {message: string}>   => {
 export const POST = async (resquest: Request, context: any) => {
   try {
 
-    
+
 
     const newCards = await resquest.json()
     fs.writeFileSync(pathToFile, JSON.stringify({cards: newCards}, null, 2))
