@@ -8,30 +8,31 @@ import styles from '@/components/UI/Comment/Comment.module.css'
 
 import CardButton from '@/components/UI/Card_Button/CardButton'
 
+// types
+
+import { CommentCardTypes } from '@/types/type'
+
 interface CommentProps {
+  comment: CommentCardTypes
   author: string | undefined
-  date: string
-  comment: string;
-  number: number
   deleteHandler: any
  }
 
-const Comment: FC<CommentProps> = ({ author, date, comment, number, deleteHandler}) => {
+const Comment: FC<CommentProps> = ({ comment, author, deleteHandler}) => {
   return (
     <div className={styles.comment_container}>
 
       <div className={styles.comment_box}>
-        <div className={styles.comment_number}>{number}</div>
+        <div className={styles.comment_number}>{comment.id}</div>
         <div className={styles.comment_author}>{author}</div>
-        <div className={styles.comment_date}>{date}</div>
+        <div className={styles.comment_date}>{comment.date}</div>
       </div>
 
 
       <hr className={styles.comment_line}/>
 
-
-      <div className={styles.comment_text}>{comment}</div>
-      <CardButton type={'button'} text={'Удалить'} onClick={() => {deleteHandler(number)}}/>
+      <div className={styles.comment_text}>{comment.text}</div>
+      <CardButton type={'button'} text={'Удалить'} onClick={() => {deleteHandler(comment.id)}}/>
 
 
 

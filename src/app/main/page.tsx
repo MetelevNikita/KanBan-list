@@ -32,7 +32,7 @@ const page = () => {
 
   const [cards, setCards] = useState<CardType[]>([])
   const [users, setUsers] = useState<UsersType[]>([])
-  const [currentUser, setCurrentUser] = useState<UsersType>()
+  const [currentUser, setCurrentUser] = useState<UsersType | null>(null)
   const [activeId, setActiveId] = useState<number | string>('')
   const [activeCard, setActiveCard] = useState<CardType | any>()
 

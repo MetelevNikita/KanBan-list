@@ -8,7 +8,7 @@ import styles from '@/components/OpenCard/OpenCard.module.css'
 
 // types
 
-import{ CardType, UsersType } from "@/types/type"
+import{ CardType, UsersType, CommentCardTypes } from "@/types/type"
 
 // img
 
@@ -125,32 +125,27 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler, user }) => {
   const deleteComment = async (id: number | string) => {
     try {
 
-
-
-      console.log(id)
-
-
-      const responce = await fetch(`/api/comments/${card.id}`, {
+      const responce = await fetch(`/api/comments/${currentCard?.id}`, {
         method: 'DELETE',
         headers: {
           'content-type': 'application/json'
-        }
+        },
+        body: JSON.stringify(id)
       })
 
+
+      if(!responce.ok) {
+        throw new Error('Что то пошло не так')
+      }
+
       const data = await responce.json()
+      setUpdate(Math.random())
       return data
 
     } catch (error) {
       console.log(error)
     }
   }
-
-
-  //
-
-
-
-
 
 
 
@@ -268,8 +263,8 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler, user }) => {
 
             <div className={styles.openCard_comment_container}>
 
-              {currentCard.comment.map((comment: string, index: number) => {
-                return <Comment key={index+1} author={currentUser} date={new Date().toLocaleDateString()} comment={comment} number={index+1} deleteHandler={deleteComment}/>
+              {currentCard.comment.map((comment: CommentCardTypes, index: number) => {
+                return <Comment key={index + 1} comment={comment} deleteHandler={deleteComment} author={currentUser}/>
               })}
 
 

@@ -5,7 +5,7 @@ import path from "path";
 
 //
 
-import { CardType } from "@/types/type";
+import { CardType, CommentCardTypes } from "@/types/type";
 
 //
 
@@ -34,7 +34,7 @@ export const PUT = async (request: Request, context: any) => {
       return NextResponse.json({ error: "Card not found" }, { status: 404 });
     }
 
-    commentToCard.comment.push(data)
+    commentToCard.comment.push({id: commentToCard.comment.length + 1, userId: id.toString(), text: data, date: new Date().toLocaleDateString()})
 
     const newDatabase = dbData.cards.filter((item: CardType) => item.id !== id)
     newDatabase.push(commentToCard)
@@ -57,14 +57,28 @@ export const PUT = async (request: Request, context: any) => {
 export const DELETE = async (request: Request, context: { params: { id: string } }) => {
   try {
 
-    const { id } = context.params;
+    const { id } = await context.params;
+    const commentId = await request.json();
 
     const db = fs.readFileSync(pathToFile, "utf-8");
     const dbData = JSON.parse(db);
 
 
+    const newCardComment = dbData.cards.find((item: CardType) => item.id === id).comment.filter((item: CommentCardTypes) => item.id !== parseInt(commentId))
 
-    return NextResponse.json({ message: `Карточка удалена ${id}` }, { status: 200 });
+
+    console.log(newCardComment)
+
+    const newCard = {...dbData.cards.find((item: CardType) => item.id === id), comment: newCardComment}
+
+    console.log(newCard)
+
+
+    const newDatabase = dbData.cards.filter((item: CardType) => item.id !== id);
+    newDatabase.push(newCard)
+    fs.writeFileSync(pathToFile, JSON.stringify({ cards: newDatabase }, null, 3))
+
+    return NextResponse.json({ message: `Комментарий №${id} успешно удален!` }, { status: 200 });
 
   } catch (error) {
     return NextResponse.json({ message: "Ошибка удаления комментария" }, { status: 500 });

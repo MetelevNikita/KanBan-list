@@ -1,3 +1,13 @@
+
+
+export type CommentCardTypes = {
+  id: string | number,
+  userId: string,
+  text: string
+  date: string
+}
+
+
 export type CardType = {
     filter(arg0: (card: any, index: number) => boolean): unknown
 
@@ -23,7 +33,7 @@ export type CardType = {
     prioryty: string | any,
     status: string
     dateCreated: string
-    comment: string[]
+    comment: CommentCardTypes[]
 
 }
 
