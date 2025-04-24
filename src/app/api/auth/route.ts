@@ -3,11 +3,19 @@ import jwt from 'jsonwebtoken'
 import {cookies} from 'next/headers';
 import bcrypt from 'bcryptjs'
 
+// types
+
+import { UsersType } from '@/types/type';
+
+// prisma
+
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 //
 
 import db from '@/database/users/db.json'
-import { redirect } from 'next/navigation';
 
 
 
@@ -18,17 +26,28 @@ export const POST = async (request: Request,) => {
     const {email, password} = requestData;
 
 
-    const user = await db.users.find(user => user.email === email && bcrypt.compareSync(password, user.password));
+
+
+    const user: UsersType | any = await prisma.user.findFirst({
+      where: {email: email}
+    })
 
     if(!user) {
-      return NextResponse.json({message: 'Пользователь не найден'})
+      return NextResponse.json({message: 'Неправильно указан email'})
+    }
+
+    const passwordHash = bcrypt.compareSync(password, user.password);
+    console.log(passwordHash)
+
+    if(!passwordHash) {
+      return NextResponse.json({message: 'Пароль неверный'})
     }
 
     const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET as string, {expiresIn: '1h'});
     (await cookies()).set('token', token)
 
 
-    return NextResponse.json(user)
+    return NextResponse.json({message: 'Вход выполнен успешно', id: user.id})
 
 
   } catch (error) {

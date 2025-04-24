@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
+// prisma
+
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
 
 // types
 
@@ -9,26 +14,19 @@ import { CardType } from "@/types/type";
 
 //
 
-const pathToFile = path.join(process.cwd(), "/src/database/cards/db.json");
 
-
-
-export const GET =  (): NextResponse<CardType[] | {message: string}>   => {
+export const GET = async (): Promise<NextResponse<CardType[] | unknown> | NextResponse<{ message: string, status: number}>>   => {
   try {
 
-
-    const db = fs.readFileSync(pathToFile, "utf-8");
-    const dbData: {cards: CardType[]} = JSON.parse(db)
-
-    const cards: CardType[] = dbData.cards
+    const cards = await prisma.card.findMany()
 
     if (cards.length < 1) return NextResponse.json([])
-    if(!cards) return NextResponse.json({ message: 'No Cards' }, { status: 200 })
+    if(!cards) return NextResponse.json({ message: 'Список карточек пуст', status: 200 })
 
-    return NextResponse.json(cards, { status: 200 })
+    return NextResponse.json(cards)
 
   } catch (error: Error | any) {
-    return NextResponse.json({ message: `Ошибка получения карточек ${error.message}`, status: 500 })
+    return new NextResponse(`Ошибка получения карточек ${error.message}`, {status: 500 })
   }
 }
 
@@ -36,19 +34,32 @@ export const GET =  (): NextResponse<CardType[] | {message: string}>   => {
 
 // POST
 
-export const POST = async (resquest: Request, context: any) => {
+export const POST = async (resquest: Request): Promise<NextResponse<CardType[] | unknown> | NextResponse<{ message: string, status: number}>>=> {
   try {
 
 
+    const newCard = await resquest.json()
+    const cards = await prisma.$transaction(async (tx) => {
+      const currentCards = await tx.card.findMany()
 
-    const newCards = await resquest.json()
-    fs.writeFileSync(pathToFile, JSON.stringify({cards: newCards}, null, 2))
+      tx.card.deleteMany({
+        where: {NOT: {id: {in: newCard.id}}}
+      })
+
+      for (const card of newCard) {
+        await tx.card.upsert({
+          where: { id: card.id },
+          update: card,
+          create: card
+        })
+      }
+
+    })
 
     return NextResponse.json({ message: 'Порядок карточек успешно изменен' }, { status: 200 })
 
-
   } catch (error: Error | any) {
-    return NextResponse.json({ message: `Ошибка добавления новой карточки ${error.message}`, status: 500 })
+    return new NextResponse(`Ошибка добавления новой карточки ${error.message}`, {status: 500 })
   }
 }
 

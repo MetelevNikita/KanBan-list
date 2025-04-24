@@ -86,6 +86,7 @@ const page = () => {
       })
 
       const data = await responce.json()
+      console.log(data)
       return data
     } catch (error : Error | any) {
       console.log(`Ошибка сохранения карточек: ${error.message}`)
@@ -144,10 +145,10 @@ const page = () => {
   const getSingleUser = async (): Promise<UsersType> => {
 
     try {
-      const id = sessionStorage.getItem('userId')
-      const userId = JSON.parse(id as string)
+      const id: string | null = sessionStorage.getItem('userId')
+      console.log(id)
 
-      const responce = await fetch(`/api/users/${userId}`, {
+      const responce = await fetch(`/api/users/${id}`, {
         method: 'GET',
         headers: {
           'content-type': 'application/json'
@@ -182,6 +183,8 @@ const page = () => {
 
     })
   }
+
+
 
 
   // DND
@@ -310,17 +313,12 @@ const page = () => {
 
 
 
-
-
-
-
   return (
     <>
       <Row>
 
 
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragOver={handleDragOver} onDragStart={handleDragStart}>
-
 
 
             <Col md={12} className={styles.boards_container} >

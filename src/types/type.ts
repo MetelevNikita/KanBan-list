@@ -9,10 +9,7 @@ export type CommentCardTypes = {
 
 
 export type CardType = {
-    filter(arg0: (card: any, index: number) => boolean): unknown
-
     id: string
-    cardid: string
     title: string
     name: string
     phone: string
@@ -46,13 +43,13 @@ export type BoardType = {
 
 
 export type UsersType = {
-  id: string,
+  id: number,
   username: string,
   name: string,
   lastname: string,
   email: string
   password: string
-  dateCreated: string
+  dateCreated: Date
   company: string
   colorBoard: string
   role: string
