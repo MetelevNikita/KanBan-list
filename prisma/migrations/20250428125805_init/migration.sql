@@ -1,4 +1,20 @@
 -- CreateTable
+CREATE TABLE "user" (
+    "id" SERIAL NOT NULL,
+    "username" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "lastname" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "dateCreated" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "company" TEXT NOT NULL,
+    "colorBoard" TEXT NOT NULL,
+    "role" TEXT NOT NULL,
+
+    CONSTRAINT "user_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "card" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
@@ -21,17 +37,19 @@ CREATE TABLE "card" (
     "prioryty" TEXT NOT NULL,
     "status" TEXT NOT NULL,
     "dateCreated" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "comment" TEXT NOT NULL,
 
     CONSTRAINT "card_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "comment" (
+CREATE TABLE "comments" (
     "id" SERIAL NOT NULL,
-    "userId" TEXT NOT NULL,
     "text" TEXT NOT NULL,
     "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "cardId" INTEGER NOT NULL,
 
-    CONSTRAINT "comment_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "comments_pkey" PRIMARY KEY ("id")
 );
+
+-- AddForeignKey
+ALTER TABLE "comments" ADD CONSTRAINT "comments_cardId_fkey" FOREIGN KEY ("cardId") REFERENCES "card"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

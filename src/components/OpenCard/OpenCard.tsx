@@ -105,7 +105,7 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler, user }) => {
       const text = formData.get('comment') as string
 
       const response = await fetch(`/api/comments/${card.id}`, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
           'content-type': 'application/json'
         },
@@ -153,6 +153,12 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler, user }) => {
   if(!currentCard) {
     return <div>loading...</div>
   }
+
+
+  // const comments: CommentCardTypes[] = JSON.parse(JSON.stringify(currentCard.comment))
+
+  console.log(currentCard)
+
 
 
 
@@ -264,9 +270,11 @@ const OpenCard: FC<OpenCardProps> = ({ card, id, deleteHandler, user }) => {
 
             <div className={styles.openCard_comment_container}>
 
-              {currentCard.comment.map((comment: CommentCardTypes, index: number) => {
+
+              {(currentCard.comment.length < 1) ? <div className={styles.openCard_comment_notfound}>Комментарии не найдены</div> : currentCard.comment.map((comment: CommentCardTypes, index: number): React.ReactNode => {
                 return <Comment key={index + 1} comment={comment} deleteHandler={deleteComment} author={currentUser}/>
               })}
+
 
 
             </div>

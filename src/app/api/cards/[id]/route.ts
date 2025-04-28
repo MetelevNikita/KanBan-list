@@ -28,8 +28,15 @@ export const GET = async (request: Request, context: {params: {id: string}}): Pr
     const { id } = await context.params
 
     const singleCard: CardType | any = await prisma.card.findUnique({
-      where: {id: parseInt(id)}
+      where: {
+        id: parseInt(id)
+      },
+      include: {
+        comment: true
+      }
     })
+
+
 
 
 
@@ -94,11 +101,6 @@ export const PUT = async (request: Request, context: any) => {
     //   where: {id: parseInt(id)},
     //   data: {status: }
     // })
-
-
-
-
-
 
 
 

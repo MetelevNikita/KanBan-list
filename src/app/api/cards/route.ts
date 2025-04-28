@@ -34,29 +34,44 @@ export const GET = async (): Promise<NextResponse<CardType[] | unknown> | NextRe
 
 // POST
 
-export const POST = async (resquest: Request): Promise<NextResponse<CardType[] | unknown> | NextResponse<{ message: string, status: number}>>=> {
+export const POST = async (request: Request): Promise<NextResponse<CardType[] | unknown> | NextResponse<{ message: string, status: number}>>=> {
   try {
 
 
-    const newCard = await resquest.json()
-    const cards = await prisma.$transaction(async (tx) => {
-      const currentCards = await tx.card.findMany()
 
-      tx.card.deleteMany({
-        where: {NOT: {id: {in: newCard.id}}}
-      })
+    const { title, name, phone, tgid, typeproduct, otherproduct, promotion, typework, target, viewer, effect, description, voiceover, timing, place, technicalspecification, deadline, prioryty, status, comment  } = await request.json()
 
-      for (const card of newCard) {
-        await tx.card.upsert({
-          where: { id: card.id },
-          update: card,
-          create: card
-        })
+
+
+    await prisma.card.create({
+      data: {
+        title,
+        name,
+        phone,
+        tgid,
+        typeproduct,
+        otherproduct,
+        promotion,
+        typework,
+        target,
+        viewer,
+        effect,
+        description,
+        voiceover,
+        timing,
+        place,
+        technicalspecification,
+        deadline,
+        prioryty,
+        status,
+        comment
       }
-
     })
 
-    return NextResponse.json({ message: 'Порядок карточек успешно изменен' }, { status: 200 })
+
+
+
+    return NextResponse.json({ message: 'Карточка добавлена' }, { status: 200 })
 
   } catch (error: Error | any) {
     return new NextResponse(`Ошибка добавления новой карточки ${error.message}`, {status: 500 })

@@ -2,7 +2,6 @@
 
 export type CommentCardTypes = {
   id: string | number,
-  userId: string,
   text: string
   date: string
 }
@@ -30,7 +29,7 @@ export type CardType = {
     prioryty: string | any,
     status: string
     dateCreated: string
-    comment: CommentCardTypes[]
+    comment: any
 
 }
 

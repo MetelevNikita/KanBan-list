@@ -45,13 +45,16 @@ model card {
     prioryty String
     status String
     dateCreated DateTime @default(now())
-    comment String
+    comment comments[]
 }
 
 
-model comment {
-  id Int @id @default(autoincrement())
-  userId String
-  text String
-  date DateTime   @default(now())
+model comments {
+
+  id        Int      @id @default(autoincrement())
+  text      String
+  date      DateTime @default(now())
+  card      card     @relation(fields: [cardId], references: [id])
+  cardId    Int    
+
 }

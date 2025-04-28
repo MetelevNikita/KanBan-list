@@ -77,7 +77,7 @@ const page = () => {
 
 
     try {
-      const responce = await fetch('/api/cards', {
+      const responce = await fetch('/api/move', {
         method: 'POST',
         headers: {
           'content-type': 'application/json'
